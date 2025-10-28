@@ -2,6 +2,8 @@ import { getSellerHomeSrv, getUsersSrv } from "@/services/user/user"
 import Layout from "../components/layout/Layout"
 import Onboarding from "../components/onboarding/Onboarding"
 import { getChallengesByUser } from "@/services/challenges/challenges"
+import BottomSheets from "@/components/bottomSheets/BottomSheets"
+import Login from "@/components/login/Login"
 
 const IndexPage = (props) => {
     const { sellersInformation, challenges } = props
@@ -15,6 +17,9 @@ const IndexPage = (props) => {
         title={title}
         url={url}>
         <Onboarding sellersInformation={sellersInformation.data} challenges={challenges} />
+        <BottomSheets isBottomSheets={true}>
+            <Login />
+        </BottomSheets>
     </Layout>
 }
 

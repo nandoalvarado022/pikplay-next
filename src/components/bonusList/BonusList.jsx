@@ -10,7 +10,7 @@ const BonusList = ({ bonuses }) => {
 
     return (
         <div className={styles.BonusList}>
-            {bonuses.map((bonus, index) => (
+            {bonuses && bonuses.map((bonus, index) => (
                 <motion.div
                     animate={{ x: 0, }}
                     className={`shine ${styles.item} ${bonus.image ? styles.withImage : ''}`}

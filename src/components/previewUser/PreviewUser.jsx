@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 // Custom
 import Button from '../button/Button'
 import CoinIcon from '../coinIcon/CoinIcon'
-import Login from '../login/Login'
+import Login from '../login-legacy/Login'
 import MenuMobileOptions from './MenuMobileOptions'
 import UserNotifications from '../userNotifications/UserNotifications'
 import useCommonStore from '../../hooks/commonStore'

@@ -11,7 +11,7 @@ import Image from 'next/image'
 // Custom
 import CoinIcon from '../coinIcon/CoinIcon'
 import { slugify } from '../../lib/utils'
-import Login from '../login/Login'
+import Login from '../login-legacy/Login'
 import useCommonStore, { loadFromLocalStorage } from '../../hooks/commonStore'
 import { useIAStore } from '../ia/IAstore'
 import Button from '../button/Button'
