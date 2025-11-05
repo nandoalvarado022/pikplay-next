@@ -88,7 +88,7 @@ const MenuMobileOptions = ({ router }) => {
     initial="hidden"
     variants={container}>
     {!isLogged && <motion.ol variants={item} className={styles.notLogged}>
-      <Login />
+      {/* <Login /> */}
     </motion.ol>}
     {isLogged && (<>
       <motion.ol variants={item}>

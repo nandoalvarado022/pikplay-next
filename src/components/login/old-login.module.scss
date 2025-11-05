@@ -1,22 +1,15 @@
 .LoginComponent {
   text-align: center;
   width: 100%;
-
   .playButton {
     margin-top: 0px;
     width: 100%;
   }
-
   :global(.contryAndPhone) {
     display: flex;
-
     [role="combobox"] {
       padding: 0 10px;
     }
-  }
-
-  h2 {
-    color: #7138C1;
   }
 }
 
@@ -34,7 +27,6 @@
     left: -20px;
     position: relative;
     width: max-content;
-
     iframe {
       // width: 320px;
     }
@@ -47,38 +39,29 @@
     font-size: 12px;
     margin-top: 10px;
     padding: 10px 15px;
-
     a {
       display: inline-block;
     }
   }
-
   :global(.MuiDialogContent-root) {
     overflow-x: hidden;
-
     &::-webkit-scrollbar-thumb {
       // background: linear-gradient(45deg, #c93530, #ff4b2b); /* Degradado facherito */
       background-color: #c93530;
       border-radius: 5px;
     }
-
     &::-webkit-scrollbar {
-      width: 2px;
-      /* Para vertical */
-      height: 2px;
-      /* Para horizontal */
+      width: 2px; /* Para vertical */
+      height: 2px; /* Para horizontal */
     }
-
     &::-webkit-scrollbar-track {
-      background: #740e9f;
-      /* Fondo oscuro */
+      background: #740e9f; /* Fondo oscuro */
       border-radius: 5px;
     }
   }
 
   .inputCode {
     text-align: center;
-
     input {
       text-align: center;
     }

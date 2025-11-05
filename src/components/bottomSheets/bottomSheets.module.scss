@@ -2,7 +2,7 @@
     background: white;
     border-radius: 0 20px 20px 0;
     box-shadow: 4px 4px 8px 0px #92919129;
-    color: white;
+    color: black;
     height: max-content;
     opacity: 0;
     padding: 10px 20px 90px 20px;
@@ -17,7 +17,7 @@
         bottom: -240px;
         box-sizing: border-box;
         left: 0px;
-        padding: 10px 20px 90px 20px;
+        padding: 20px 20px 90px 20px;
         position: fixed;
         right: initial;
         top: initial;
@@ -42,7 +42,7 @@
         border-radius: 40px;
         display: block;
         height: 4px;
-        margin: 0 auto;
+        margin: 0 auto 20px;
         width: 50px;
     }
 

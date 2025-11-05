@@ -51,6 +51,7 @@ const useCommonStore = create<CommonStoreState>((set, get) => ({
   env: 'dev',
   experiences: [],
   isAwardSummaryModalOpen: false, // Modal de premios
+  isLoginBottomSheets: true,
   isFullLoading: false, // Pantalla de carga
   isOnboardingProcess: false,
   isOpenLoginModal: false, // Modal de login

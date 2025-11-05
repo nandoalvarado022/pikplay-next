@@ -11,6 +11,8 @@ import AwardsSummaryModal from '../awardsSummary/AwardsSummary.jsx';
 import MessagesTop from '../messagesTop/MessagesTop.jsx';
 import FullScreenLoading from '../fullScreenLoading/FullScreenLoading.jsx';
 import PulseIndicator from '../pulseIndicator/PulseIndicator';
+import BottomSheets from '../bottomSheets/BottomSheets';
+import Login from '../login/Login';
 
 const Layout = (props) => {
   const [isReady, setIsReady] = useState(false)
@@ -33,6 +35,7 @@ const Layout = (props) => {
   const setStoreValue = useCommonStore(state => state.setStoreValue)
   const userLogged = useCommonStore(state => state.userLogged)
   const visualIndicator = useCommonStore(state => state.visualIndicator)
+  const isLoginBottomSheets = useCommonStore(state => state.isLoginBottomSheets)
   const { checkIAMessage, IAMessage, setIsvisible } = useIAStore()
 
   const { isShow: isShowLeftMenu } = leftMenuBar
@@ -119,6 +122,9 @@ const Layout = (props) => {
         {messageTop && <MessagesTop messageTop={messageTop} setStoreValue={setStoreValue} />}
         {isFullLoading && <FullScreenLoading />}
         {isAwardSummaryModalOpen && <AwardsSummaryModal />}
+        {isLoginBottomSheets && <BottomSheets isBottomSheets>
+          <Login />
+          </BottomSheets>}
         {children}
       </Body>
     </>
