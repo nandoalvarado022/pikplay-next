@@ -40,3 +40,9 @@ a {
     color-scheme: dark;
   }
 }
+
+.MuiFormControl-root {
+  .fieldset {
+    border-radius: 20px;
+  }
+}

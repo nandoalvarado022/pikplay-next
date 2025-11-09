@@ -35,6 +35,7 @@ const Layout = (props) => {
   const setStoreValue = useCommonStore(state => state.setStoreValue)
   const userLogged = useCommonStore(state => state.userLogged)
   const visualIndicator = useCommonStore(state => state.visualIndicator)
+  const isOpenLoginModal = useCommonStore(state => state.isOpenLoginModal)
   const isLoginBottomSheets = useCommonStore(state => state.isLoginBottomSheets)
   const { checkIAMessage, IAMessage, setIsvisible } = useIAStore()
 
@@ -122,7 +123,7 @@ const Layout = (props) => {
         {messageTop && <MessagesTop messageTop={messageTop} setStoreValue={setStoreValue} />}
         {isFullLoading && <FullScreenLoading />}
         {isAwardSummaryModalOpen && <AwardsSummaryModal />}
-        {isLoginBottomSheets && <BottomSheets isBottomSheets>
+        {isOpenLoginModal && <BottomSheets isBottomSheets>
           <Login />
           </BottomSheets>}
         {children}

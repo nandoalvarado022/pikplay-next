@@ -12,7 +12,8 @@ import DialogTitle from '@mui/material/DialogTitle'
 import Button from '../button/Button'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MenuItem, Select } from '@mui/material'
+import { InputAdornment, MenuItem, Select } from '@mui/material'
+import { Search } from '@mui/icons-material'
 
 export default function LoginInterface({
   buttonText,
@@ -61,9 +62,9 @@ export default function LoginInterface({
 
   return (
     <div className={styles.LoginComponent}>
-      <span className={styles.subtitle}>Solo con tu número de teléfono </span>
-      puedes crear tu cuenta y empezar a ganar <b>¡Pikcoins!</b>
-      <Image alt="Imagen de login chica viendo Pikcoins en su telefono" src="images/elements/girl-coin.png" height={200} width={200} style={{ display: 'block', margin: '0 auto' }} />
+      {/* <span className={styles.subtitle}>Solo con tu número de teléfono </span> */}
+      {/* puedes crear tu cuenta y empezar a ganar <b>¡Pikcoins!</b> */}
+      {/* <Image className='main-image' alt="Imagen de login chica viendo Pikcoins en su telefono" src="images/elements/girl-coin.png" height={200} width={200} style={{ display: 'block', margin: '0 auto' }} /> */}
       {/* Fields */}
       {/* {!isCodeSent && <TextField
           defaultValue={onboardingName}
@@ -74,7 +75,7 @@ export default function LoginInterface({
           onKeyUp={e => setName(e.target.value)}
           type='text'
         />} */}
-        <h2>Ingresa tu número de teléfono</h2>
+      <h2>Ingresa tu número de teléfono</h2>
       <div>Te enviaremos un mensaje a whatsap con un código de ingreso</div>
       <div
         className={styles.contryAndPhone}
@@ -128,6 +129,13 @@ export default function LoginInterface({
           type='text'
           fullWidth
           value={phoneNumber}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="start">
+                <img src="/images/icons/cel-icon.svg" />
+              </InputAdornment>
+            ),
+          }}
         />
       </div>
       {/* {!isCodeSent && env != 'dev' && (
@@ -172,25 +180,27 @@ export default function LoginInterface({
         &nbsp;es posible que te enviemos notificaciones por sms, que puedes
         desactivar cuando quieras.
       </small>
-      {isCodeSent && <Button onClick={handleFixPhone} color='link'>
-        Corregir número
-      </Button>}
-      {/* <Button onClick={handleCloseDialog} color='normal'>
+      <div className={styles.actions}>
+        {isCodeSent && <Button onClick={handleFixPhone} color='link'>
+          Corregir número
+        </Button>}
+        {/* <Button onClick={handleCloseDialog} color='normal'>
           Cancelar
         </Button> */}
-      {!isCodeSent && (
+        {!isCodeSent && (
+          <Button
+            onClick={!buttonsBlocked ? handleTengoCodigo : null}
+            color={!buttonsBlocked ? 'link' : 'normal'}>
+            Tengo código
+          </Button>
+        )}
         <Button
-          onClick={!buttonsBlocked ? handleTengoCodigo : null}
-          color={!buttonsBlocked ? 'link' : 'normal'}>
-          Tengo código
+          color={!buttonsBlocked ? 'blue' : 'normal'}
+          onClick={!isCodeSent && !buttonsBlocked ? handleEnviarCodigo : null}
+          realistic>
+          {buttonText}
         </Button>
-      )}
-      <Button
-        color={!buttonsBlocked ? 'blue' : 'normal'}
-        onClick={!isCodeSent && !buttonsBlocked ? handleEnviarCodigo : null}
-        realistic>
-        {buttonText}
-      </Button>
+      </div>
     </div>
   )
 }

@@ -24,13 +24,14 @@ const MenuMobileOptions = ({ router }) => {
     setStoreValue,
     userLogged,
     userLoggedOriginal
+
   } = useCommonStore((state => state))
   const { name, coins } = userLogged
   const isLogged = userLogged?.uid
   const {
     handleUserMessage,
   } = useIAStore((state => state))
-  
+
   const { nextVisualIndicator } = useChallengesList(state => state)
 
   const handleLogout = () => {
@@ -88,7 +89,10 @@ const MenuMobileOptions = ({ router }) => {
     initial="hidden"
     variants={container}>
     {!isLogged && <motion.ol variants={item} className={styles.notLogged}>
-      {/* <Login /> */}
+      <button onClick={() => {
+        setStoreValue('isOpenLoginModal', true)
+        setStoreValue('leftMenuBar', { isShow: false })
+      }}>Login</button>
     </motion.ol>}
     {isLogged && (<>
       <motion.ol variants={item}>

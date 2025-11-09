@@ -1,5 +1,9 @@
 .LoginComponent {
-  text-align: center;
+  // text-align: center;
+  box-sizing: border-box;
+  max-height: 430px;
+  // overflow-y: scroll;
+  padding: 0 10px 130px 10px;
   width: 100%;
 
   .playButton {
@@ -18,9 +22,12 @@
   h2 {
     color: #7138C1;
   }
-}
 
-.LoginComponent__Modal {
+  img.main-image {
+    height: 140px;
+    width: auto;
+  }
+
   span.subtitle {
     color: #6b3295;
     display: block;
@@ -44,8 +51,8 @@
     background: #b55cc02b;
     border-radius: 5px;
     display: block;
-    font-size: 12px;
-    margin-top: 10px;
+    // font-size: 12px;
+    margin: 10px 0 20px;
     padding: 10px 15px;
 
     a {
@@ -74,13 +81,18 @@
       /* Fondo oscuro */
       border-radius: 5px;
     }
+
+    .inputCode {
+      text-align: center;
+
+      input {
+        text-align: center;
+      }
+    }
+
   }
 
-  .inputCode {
+  .actions {
     text-align: center;
-
-    input {
-      text-align: center;
-    }
   }
 }
