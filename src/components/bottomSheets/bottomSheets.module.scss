@@ -1,141 +1,148 @@
 .BottomSheets {
-    /* Mobile-first styles: fixed to bottom, full width */
-    background: white;
-    border-radius: 12px 12px 0 0;
-    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.12);
-    color: black;
-    width: 100%;
-    max-height: 80vh;
-    padding: 16px 18px 20px 18px;
-    position: fixed;
+  /* Mobile-first styles: fixed to bottom, full width */
+  background: white;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.12);
+  color: black;
+  width: 100%;
+  max-height: 80vh;
+  // padding: 16px 18px 20px 18px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1100;
+  box-sizing: border-box;
+  overflow: hidden; /* Evitar scroll en el contenedor principal */
+  display: flex;
+  flex-direction: column;
+
+  label {
+    color: #a4a4a4;
+    font-size: 16px;
+  }
+
+  .topLine {
+    background: #dddddd;
+    border-radius: 40px;
+    display: block;
+    height: 6px;
+    width: 60px;
+    cursor: grab;
+    touch-action: pan-y;
+
+    position: absolute;
+    top: 0;
+    z-index: 9;
+    right: 0;
+    margin: 10px auto;
     left: 0;
-    bottom: 0;
-    z-index: 1100;
+    box-shadow: 0px 2px 2px #797979;
+  }
+
+  .content {
+    /* contenedor interno que animamos con framer */
+    width: 100%;
     box-sizing: border-box;
-    overflow: hidden; /* Evitar scroll en el contenedor principal */
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+    padding-bottom: 20px;
+    overscroll-behavior-y: contain; /* Prevenir pull-to-refresh */
+  }
+
+  .borderColor {
+    align-items: center;
+    column-gap: 20px;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    margin: 10px auto 0;
+    padding: 10px 0;
+    text-align: center;
+    width: max-content;
 
-    label {
-        color: #a4a4a4;
-        font-size: 16px;
+    .items {
+      column-gap: 10px;
+      display: flex;
+      margin: 10px auto 0;
+      width: max-content;
     }
 
-            .topLine {
-                background: #dddddd;
-                border-radius: 40px;
-                display: block;
-                height: 6px;
-                margin: 6px auto 12px;
-                width: 60px;
-                cursor: grab;
-                touch-action: pan-y;
-            }
+    .item {
+      border-radius: 50%;
+      box-shadow: 0px 0px 4px 2px #cdcdcd;
+      cursor: pointer;
+      height: 20px;
+      margin-bottom: 10px;
+      width: 20px;
 
-            .content {
-                /* contenedor interno que animamos con framer */
-                width: 100%;
-                box-sizing: border-box;
-                flex: 1;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
-                padding-bottom: 20px;
-                overscroll-behavior-y: contain; /* Prevenir pull-to-refresh */
-            }
+      &.selected {
+        box-shadow: 0px 0px 0px 2px #3095b3;
+        border: solid 1px white;
+      }
+    }
+  }
 
-    .borderColor {
-        align-items: center;
-        column-gap: 20px;
-        display: flex;
-        justify-content: center;
-        margin: 10px auto 0;
-        padding: 10px 0;
-        text-align: center;
-        width: max-content;
+  .backgroundImage {
+    display: flex;
+    margin: 0px auto;
+    padding: 0px 0 10px;
+    text-align: center;
+    width: max-content;
+    align-items: center;
+    column-gap: 20px;
+    justify-content: center;
 
-        .items {
-            column-gap: 10px;
-            display: flex;
-            margin: 10px auto 0;
-            width: max-content;
+    .items {
+      column-gap: 15px;
+      display: flex;
+      margin: 10px auto 0;
+      width: max-content;
+
+      @media screen and (max-width: 480px) {
+        // display: block;
+      }
+
+      .item {
+        height: 50px;
+
+        img {
+          // box-shadow: 0px 0px 4px 2px #cdcdcd;
+          // border: #c93530 4px solid;
+          // border-radius: 0 10px;
+          cursor: pointer;
+          height: 50px;
+          width: 50px;
         }
 
-        .item {
-            border-radius: 50%;
-            box-shadow: 0px 0px 4px 2px #cdcdcd;
-            cursor: pointer;
-            height: 20px;
-            margin-bottom: 10px;
-            width: 20px;
-
-            &.selected {
-                box-shadow: 0px 0px 0px 2px #3095b3;
-                border: solid 1px white;
-            }
+        &.selected {
+          box-shadow: 0px 0px 0px 2px #3095b3;
+          border: solid 1px white;
         }
+      }
     }
+  }
 
-    .backgroundImage {
-        display: flex;
-        margin: 0px auto;
-        padding: 0px 0 10px;
-        text-align: center;
-        width: max-content;
-        align-items: center;
-        column-gap: 20px;
-        justify-content: center;
+  hr {
+    border-top: transparent;
+    border-bottom: 1px solid #e4e4e4;
+  }
 
-        .items {
-            column-gap: 15px;
-            display: flex;
-            margin: 10px auto 0;
-            width: max-content;
-
-            @media screen and (max-width: 480px) {
-                // display: block;
-            }
-
-            .item {
-                height: 50px;
-
-                img {
-                    // box-shadow: 0px 0px 4px 2px #cdcdcd;
-                    // border: #c93530 4px solid;
-                    // border-radius: 0 10px;
-                    cursor: pointer;
-                    height: 50px;
-                    width: 50px;
-                }
-
-                &.selected {
-                    box-shadow: 0px 0px 0px 2px #3095b3;
-                    border: solid 1px white;
-                }
-            }
-        }
-    }
-
-    hr {
-        border-top: transparent;
-        border-bottom: 1px solid #e4e4e4;
-    }
-
-    .actions {
-        margin: 10px 0;
-    }
+  .actions {
+    margin: 10px 0;
+  }
 }
 
 .elementToClose {
-    background: rgba(0, 0, 0, 0.36);
-    position: fixed;
-    inset: 0;
-    height: 100vh;
-    left: 0;
-    right: 0;
-    z-index: 1050; /* below sheet (1100) */
+  background: rgba(0, 0, 0, 0.36);
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  z-index: 1050; /* below sheet (1100) */
 
-    .actions {
-        margin: 20px auto;
-        text-align: center;
-    }
+  .actions {
+    margin: 20px auto;
+    text-align: center;
+  }
 }

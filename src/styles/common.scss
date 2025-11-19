@@ -1,5 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
+// Fonts
+// @import url("https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
 
 // Custom
 @import "./variables.scss";
@@ -253,6 +255,13 @@ span.MuiBadge-badge {
 }
 
 // Toast
+.Toastify__toast-container {
+  border-radius: 10px;
+  left: 10px;
+  overflow: hidden;
+  top: 10px;
+  width: calc(100% - 20px);
+}
 /*
 .Toastify__toast-container {
   color: white;

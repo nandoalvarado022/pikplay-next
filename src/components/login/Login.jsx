@@ -15,6 +15,7 @@ function Login(props) {
   const router = useRouter()
   const [isHuman, setIsHuman] = useState(env == 'dev')
   const [isCodeSent, setIsCodeSent] = useState(false)
+  const [isStore, setIsStore] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState(null)
   const [name, setName] = useState(null)
   const [buttonText, setButtonText] = useState('Enviar código')
@@ -83,13 +84,13 @@ function Login(props) {
 
     const contryCode = '57'
     const fullPhone = contryCode + formattedPhoneNumber
-    const req = await loginSrv(null, fullPhone, null, name)
+    const req = await loginSrv(null, fullPhone, null, name, isStore)
     if (req.code == 200) {
       toast('¡Código enviado!, ahora solo debes colocarlo allí ⬇️')
       setButtonText('Validar')
       setIsCodeSent(true)
     } else {
-      toast.error('Parece que tenemos lios al envíarte el código,c omunicate con nuestra linea de atención')
+      toast.error('Parece que tenemos lios al envíarte el código 😔')
     }
     setStoreValue('isFullLoading', false)
   }
@@ -139,6 +140,7 @@ function Login(props) {
       onChangeReCaptcha,
       phoneNumber,
       setIsCodeSent,
+      setIsStore,
       setPhoneNumber,
       setName
     }}

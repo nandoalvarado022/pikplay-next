@@ -6,6 +6,7 @@ import Link from 'next/link'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import LoginIcon from '@mui/icons-material/Login';
 import Image from 'next/image'
 
 // Custom
@@ -89,10 +90,13 @@ const MenuMobileOptions = ({ router }) => {
     initial="hidden"
     variants={container}>
     {!isLogged && <motion.ol variants={item} className={styles.notLogged}>
-      <button onClick={() => {
+      <Link href="#" onClick={() => {
         setStoreValue('isOpenLoginModal', true)
         setStoreValue('leftMenuBar', { isShow: false })
-      }}>Login</button>
+      }}>
+        <LoginIcon />
+        Login
+        </Link>
     </motion.ol>}
     {isLogged && (<>
       <motion.ol variants={item}>

@@ -54,7 +54,7 @@ const Header = ({
       ()
       {/* Google Adsense */}
       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4730353912478910"
-        crossorigin="anonymous"></script>
+        crossOrigin="anonymous"></script>
     </Head>
   )
 }

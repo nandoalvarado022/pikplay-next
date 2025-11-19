@@ -1,98 +1,197 @@
 .LoginComponent {
   // text-align: center;
   box-sizing: border-box;
-  max-height: 430px;
+  // max-height: 430px;
   // overflow-y: scroll;
-  padding: 0 10px 130px 10px;
   width: 100%;
 
-  .playButton {
-    margin-top: 0px;
+  /* Gallery */
+  .gallery {
+    background: transparent;
+    // border-radius: 10px;
+    // margin: 10px auto 20px;
+    overflow: hidden;
     width: 100%;
   }
 
-  :global(.contryAndPhone) {
+  .slides {
     display: flex;
-
-    [role="combobox"] {
-      padding: 0 10px;
-    }
+    transition: transform 400ms ease;
+    will-change: transform;
   }
 
-  h2 {
-    color: #7138C1;
+  .slide {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff10; /* leve */
+    // padding: 6px 0;
   }
 
-  img.main-image {
-    height: 140px;
-    width: auto;
+  .dots {
+    display: none;
+    // display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
   }
 
-  span.subtitle {
-    color: #6b3295;
-    display: block;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: normal;
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #c7b5e6;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 200ms ease, transform 120ms ease;
   }
 
-  .capchaContent {
-    transform: scale(0.838);
-    left: -20px;
-    position: relative;
-    width: max-content;
-
-    iframe {
-      // width: 320px;
-    }
+  .dot:hover {
+    transform: scale(1.1);
   }
 
-  .terminosCondiciones {
-    background: #b55cc02b;
-    border-radius: 5px;
-    display: block;
-    // font-size: 12px;
-    margin: 10px 0 20px;
-    padding: 10px 15px;
+  // End gallery
 
-    a {
-      display: inline-block;
-    }
-  }
+  .content {
+    margin: 20px;
 
-  :global(.MuiDialogContent-root) {
-    overflow-x: hidden;
+    .tabs {
+      color: #565656;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
 
-    &::-webkit-scrollbar-thumb {
-      // background: linear-gradient(45deg, #c93530, #ff4b2b); /* Degradado facherito */
-      background-color: #c93530;
-      border-radius: 5px;
-    }
+      .item {
+        position: relative;
+        padding-bottom: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        padding: 6px;
+        transition: color 200ms ease, transform 120ms ease;
+        will-change: transform;
 
-    &::-webkit-scrollbar {
-      width: 2px;
-      /* Para vertical */
-      height: 2px;
-      /* Para horizontal */
-    }
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 2px;
+          width: 100%;
+          background: #7138c1;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 200ms ease;
+        }
 
-    &::-webkit-scrollbar-track {
-      background: #740e9f;
-      /* Fondo oscuro */
-      border-radius: 5px;
-    }
+        &:active {
+          transform: scale(0.98);
+        }
 
-    .inputCode {
-      text-align: center;
+        &.selected {
+          background: #f4f4f4;
+          color: #7138c1;
+        }
 
-      input {
-        text-align: center;
+        &.selected::after {
+          transform: scaleX(1);
+        }
+
+        svg {
+          color: #565656;
+          height: 24px;
+          width: 24px;
+        }
+
+        img {
+          height: 20px;
+          margin: 0 0 -4px 4px;
+          width: 20px;
+        }
       }
     }
 
-  }
+    .dot.active {
+      background: #7138c1;
+    }
+    .playButton {
+      margin-top: 0px;
+      width: 100%;
+    }
 
-  .actions {
-    text-align: center;
+    :global(.contryAndPhone) {
+      display: flex;
+
+      [role="combobox"] {
+        padding: 0 10px;
+      }
+    }
+
+    h2 {
+      color: #7138c1;
+    }
+
+    img.main-image {
+      height: 140px;
+      width: auto;
+    }
+
+    span.subtitle {
+      color: #6b3295;
+      display: block;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .terminosCondiciones {
+      // background: #b55cc02b;
+      border-radius: 5px;
+      display: block;
+      margin: 10px 0 20px;
+      text-align: center;
+
+      a {
+        color: #28A1EB;
+        display: inline-block;
+      }
+    }
+
+    :global(.MuiDialogContent-root) {
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar-thumb {
+        // background: linear-gradient(45deg, #c93530, #ff4b2b); /* Degradado facherito */
+        background-color: #c93530;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 2px;
+        /* Para vertical */
+        height: 2px;
+        /* Para horizontal */
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #740e9f;
+        /* Fondo oscuro */
+        border-radius: 5px;
+      }
+
+      .inputCode {
+        text-align: center;
+
+        input {
+          text-align: center;
+        }
+      }
+    }
+
+    .actions {
+      margin: 10px 0;
+      text-align: center;
+    }
   }
 }
