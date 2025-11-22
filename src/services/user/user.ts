@@ -36,10 +36,10 @@ const saveReferralSrv = (ctx, item) => {
   return post(ctx, path, item);
 };
 
-const loginSrv = async (ctx: any, phone: string, code: number, name: string) => {
+const loginSrv = async (ctx: any, phone: string, code: number, name: string, isStore: boolean) => {
   const path = BASE_URL + '/login';
   try {
-    const data = await post(ctx, path, { code, phone, name })
+    const data = await post(ctx, path, { code, phone, name, isStore })
     // const data = { code: 400, data: { token: '1234', uid: '1234' } } // Testing porpuses
     const { token, uid } = data.data
     const oneYearFromNow = new Date()

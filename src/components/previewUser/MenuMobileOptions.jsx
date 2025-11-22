@@ -6,6 +6,7 @@ import Link from 'next/link'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import HeadphonesIcon from '@mui/icons-material/Headphones';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import LoginIcon from '@mui/icons-material/Login';
 import Image from 'next/image'
 
 // Custom
@@ -24,13 +25,14 @@ const MenuMobileOptions = ({ router }) => {
     setStoreValue,
     userLogged,
     userLoggedOriginal
+
   } = useCommonStore((state => state))
   const { name, coins } = userLogged
   const isLogged = userLogged?.uid
   const {
     handleUserMessage,
   } = useIAStore((state => state))
-  
+
   const { nextVisualIndicator } = useChallengesList(state => state)
 
   const handleLogout = () => {
@@ -88,7 +90,13 @@ const MenuMobileOptions = ({ router }) => {
     initial="hidden"
     variants={container}>
     {!isLogged && <motion.ol variants={item} className={styles.notLogged}>
-      <Login />
+      <Link href="#" onClick={() => {
+        setStoreValue('isOpenLoginModal', true)
+        setStoreValue('leftMenuBar', { isShow: false })
+      }}>
+        <LoginIcon />
+        Login
+        </Link>
     </motion.ol>}
     {isLogged && (<>
       <motion.ol variants={item}>

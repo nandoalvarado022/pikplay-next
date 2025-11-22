@@ -50,7 +50,7 @@ const BonusList = ({ bonuses }) => {
                                 Redimir
                             </a>
                         </Button>
-                        {!bonus.price && <Button color="yellow" style={{ color: "white" }}>Compartir</Button>}
+                        {!bonus.price && <Button color="secondary" style={{ color: "white" }}>Compartir</Button>}
                     </div>
                     {/* <hr /> */}
                     <div className={styles.terms}>
