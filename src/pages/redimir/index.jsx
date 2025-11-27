@@ -81,7 +81,7 @@ function CreditRedemptionPage(props) {
         <section className={styles.headerInfo}>
           <div>
             <img className={`rotating ${styles.imgLights}`} src="/images/elements/luces.png" />
-            <img className={styles.giftIcon} src="/images/icons/gift-2.svg" alt="gift" />
+            <img className={styles.giftIcon} src="/images/icons/gift-red-green.svg" alt="gift" />
           </div>
           <div>
             <h1>¡Redime tus Pikcoins!</h1>

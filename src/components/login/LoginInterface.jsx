@@ -331,6 +331,7 @@ export default function LoginInterface({
             color={!buttonsBlocked ? "blue" : "normal"}
             onClick={!isCodeSent && !buttonsBlocked ? handleEnviarCodigo : null}
             realistic
+            fullWidth
           >
             {buttonText}
           </Button>
