@@ -29,6 +29,11 @@
     }
 }
 
+.sectionTitle {
+    color: #7c3aed;
+    font-size: 22px;
+}
+
 .leftSection {
     background-size: 280px;
     background-position: center 240px;
@@ -92,13 +97,13 @@
     .circleBottom {
         width: 20px;
         height: 20px;
-        background: #f0f0f0;
+        background: #ebe4f5;
         border-radius: 50%;
         position: absolute;
         bottom: -10px;
         left: 50%;
         transform: translateX(-50%);
-        border: 2px solid #e0e0e0;
+        border: 2px solid #ebe4f5;
     }
 
     .dashedLine {
@@ -117,6 +122,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 12px;
+    width: 260px;
 
     button {
         margin-top: 8px;

@@ -42,8 +42,8 @@ const LandingStoreLead = () => {
     {
       storeLogo: '/images/users/falamusique/logo.jpg',
       backgroundImage: '/images/backgrounds/bg-falamusique.jpg',
-      storeName: 'Fallamusique',
-      description: 'Obtén 10% de descuento en tu mensualidad',
+      storeName: 'Falamusique',
+      description: 'Obtén 10% de descuento en tu primera mensualidad',
       discount: '10% OFF',
       expirationDate: '31 Dic 2025',
     },
@@ -55,6 +55,14 @@ const LandingStoreLead = () => {
       discount: '$20.000 OFF',
       expirationDate: '31 Dic 2025',
     },
+    {
+      storeLogo: '/images/users/lexgo/logo.jpg',
+      backgroundImage: '/images/users/lexgo/portada.jpg',
+      storeName: 'Lexgo',
+      description: 'Obtén 30% de descuento en registro de marca y constitucion de sociedad',
+      discount: '30% OFF',
+      expirationDate: '31 Dic 2025',
+    }
   ]
 
   const [currentCoupon, setCurrentCoupon] = React.useState(0)
