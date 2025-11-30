@@ -138,13 +138,39 @@
   text-shadow: -2px -2px 2px #ffffff;
   width: 220px;
   z-index: 1;
+  min-height: 75px;
 
   &.first {
     margin-left: 90px;
   }
 
+  &.typing {
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+  }
+
   .highlight {
     color: #7c3aed;
+  }
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: #dbdbdb;
+  display: inline-block;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
   }
 }
 
@@ -163,6 +189,7 @@
 
   &.cardPurple {
     background: linear-gradient(135deg, #a78bfa 0%, #521a93 100%);
+    padding: 10px;
 
     .cardText {
       color: white;
@@ -176,6 +203,13 @@
       flex-shrink: 0;
       height: 60px;
       width: 60px;
+    }
+
+    &.second {
+      p {
+        margin-left: 10px;
+        margin-top: 4px;
+      }
     }
   }
 

@@ -32,6 +32,9 @@ export default function LoginInterface({
   setPhoneNumber,
   setName,
   setIsStore,
+  countdown,
+  canResend,
+  handleResendCode,
 }) {
   const [contry, setContry] = useState("57");
   const [activeTab, setActiveTab] = useState("buyer");
@@ -313,9 +316,21 @@ export default function LoginInterface({
         )}
         <div className={styles.actions}>
           {isCodeSent && (
-            <Button onClick={handleFixPhone} color="link">
-              Corregir número
-            </Button>
+            <>
+              <Button onClick={handleFixPhone} color="link" disabled={!canResend}>
+                Corregir número
+              </Button>
+              {!canResend && countdown > 0 && (
+                <Button color="normal" fullWidth disabled>
+                  Reenviar código en {countdown}s
+                </Button>
+              )}
+              {canResend && (
+                <Button onClick={handleResendCode} color="link" fullWidth>
+                  Reenviar código
+                </Button>
+              )}
+            </>
           )}
           {/* <Button onClick={handleCloseDialog} color='normal'>
           Cancelar
@@ -327,14 +342,16 @@ export default function LoginInterface({
             Tengo código
           </Button>
         )} */}
-          <Button
-            color={!buttonsBlocked ? "blue" : "normal"}
-            onClick={!isCodeSent && !buttonsBlocked ? handleEnviarCodigo : null}
-            realistic
-            fullWidth
-          >
-            {buttonText}
-          </Button>
+          {!isCodeSent && (
+            <Button
+              color={!buttonsBlocked ? "blue" : "normal"}
+              onClick={!buttonsBlocked ? handleEnviarCodigo : null}
+              realistic
+              fullWidth
+            >
+              {buttonText}
+            </Button>
+          )}
         </div>
         <small className={styles.terminosCondiciones}>
           Al ingresar en Pikplay aceptas nuestros &nbsp;

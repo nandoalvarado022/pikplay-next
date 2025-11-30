@@ -164,14 +164,14 @@ const MenuMobileOptions = ({ router }) => {
       {userLogged.isAdmin && (
         <>
           {/* <motion.ol variants={item}>
-        <Link href="/ranking">
-          <img src="https://cdn-icons-png.flaticon.com/512/1420/1420338.png" />
-          Ranking
-        </Link>
-      </motion.ol> */}
-          <motion.ol variants={item}>
+            <Link href="/ranking">
+              <img src="https://cdn-icons-png.flaticon.com/512/1420/1420338.png" />
+              Ranking
+            </Link>
+          </motion.ol> */}
+          {/* <motion.ol variants={item}>
             <Link href="/canjear">Mis canjes</Link>
-          </motion.ol>
+          </motion.ol> */}
           {favoritesSellers &&
             favoritesSellers.map((favoriteSeller) => {
               return (
