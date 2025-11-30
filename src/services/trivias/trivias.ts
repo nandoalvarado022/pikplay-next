@@ -5,7 +5,6 @@ const { get, post, put } = CustomFetch();
 const BASE_URL = "/trivias";
 
 const getTriviaSrv = async (ctx, sellerUid) => {
-    // 159 Caribe Dev
     const url = BASE_URL
     const data = await get(ctx, url + '/' + sellerUid);
     return data;

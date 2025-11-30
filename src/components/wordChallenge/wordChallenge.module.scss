@@ -5,23 +5,24 @@
   }
 
   :global(.MuiPaper-root) {
-    background-image: url(https://stateless-fueradefoco.storage.googleapis.com/wp-content/uploads/2021/05/30090736/Friends-Portada-1.jpg);
+    // background-image: url(https://stateless-fueradefoco.storage.googleapis.com/wp-content/uploads/2021/05/30090736/Friends-Portada-1.jpg);
+    background-image: url(/images/backgrounds/bg-ciudad-mallorquin.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     :global(.MuiDialogContent-root) {
-      background: #292929ad;
-      // background-image: url(/images/backgrounds/general-bg.png);
+      // background: #292929ad;
+      background: #4b718abd;
     }
   }
 
   .timer-wrapper {
     position: absolute;
-    right: -10px;
+    right: -40px;
     top: -40px;
     height: initial;
     width: initial;
-    transform: scale(0.4);
+    transform: scale(0.3);
 
     .bg {
       fill: none;
@@ -141,7 +142,7 @@
   // display: flex;
   // justify-content: center;
   margin: 0 auto;
-  width: 90%;
+
   > * {
     background-color: white;
     border-radius: 10px;

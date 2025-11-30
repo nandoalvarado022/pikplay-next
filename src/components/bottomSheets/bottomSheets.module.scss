@@ -46,7 +46,7 @@
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
-    padding-bottom: 20px;
+    // padding-bottom: 20px;
     overscroll-behavior-y: contain; /* Prevenir pull-to-refresh */
   }
 

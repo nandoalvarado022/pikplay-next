@@ -15,7 +15,7 @@ import useWordChallenge, { useWordChallengeStore } from "./useWordChallenge"
 import useCommonStore from "@/hooks/commonStore"
 
 const WordChallenge = (props) => {
-  const { setShowWorkChallenge, sellerUid } = props
+  const { onCloseCallback, setShowWorkChallenge, sellerUid } = props
   const { setIAMessage } = useIAStore()
   const [[page, direction], setPage] = useState([0, 0])
   const { setStoreValue } = useCommonStore()
@@ -45,11 +45,14 @@ const WordChallenge = (props) => {
   }
 
   const handleValidate = () => {
-    handleSendResponse(selectedOption)
+    const elapsedMilliseconds = getElapsedTime(); // Calculate elapsed time in milliseconds
+    console.log(`Tiempo de respuesta: ${elapsedMilliseconds}ms (${(elapsedMilliseconds / 1000).toFixed(2)}s)`);
+    handleSendResponse(selectedOption, elapsedMilliseconds, onCloseCallback);
   }
 
   // Timer properties
   const [secondsLeft, setSecondsLeft] = useState(60);
+  const [startTime, setStartTime] = useState(null);
   const radius = 70;
   const circumference = 2 * Math.PI * radius;
   const intervalRef = useRef(null);
@@ -57,6 +60,9 @@ const WordChallenge = (props) => {
   const offset = circumference * (1 - progress);
 
   const startTimer = () => {
+    const now = Date.now();
+    setStartTime(now);
+    
     intervalRef.current = setInterval(() => {
       setSecondsLeft((prev) => {
         if (prev <= 1) {
@@ -71,6 +77,11 @@ const WordChallenge = (props) => {
     return () => clearInterval(intervalRef.current);
   }
 
+  const getElapsedTime = () => {
+    if (!startTime) return 0;
+    return Date.now() - startTime;
+  }
+
   useEffect(() => {
     startTimer()
     getTrivia(sellerUid)
@@ -81,13 +92,17 @@ const WordChallenge = (props) => {
       open={showModal}
       // TransitionComponent={Transition}
       className={styles.WordChallenge}
-      onClose={() => set({ showModal: false })}
+      onClose={() => {
+        onCloseCallback()
+        set({ showModal: false })
+      }}
     >
       <DialogContent>
         <div className={styles.content}>
           <AnimatePresence initial={true} custom={direction}>
             <p className={styles.title}>Trivia Challenge</p>
-            <div className={styles["timer-wrapper"]}>
+            {/* Time */}
+            { secondsLeft > 0 && <div className={styles["timer-wrapper"]}>
               <svg width="160" height="160">
                 <circle
                   className={styles.bg}
@@ -107,7 +122,7 @@ const WordChallenge = (props) => {
                   {secondsLeft}s
                 </text>
               </svg>
-            </div>
+            </div>}
 
             <p className={styles.question}>
               {question}
@@ -126,13 +141,13 @@ const WordChallenge = (props) => {
                 options && options.map(item => {
 
                   return <motion.div
-                    className={selectedOption == item.detalle ? styles.selected : null}
-                    key={item.detalle}
-                    onClick={() => handlerSelectOption(item.detalle)}
+                    className={selectedOption == item.details ? styles.selected : null}
+                    key={item.details}
+                    onClick={() => handlerSelectOption(item.details)}
                     whileHover={{ scale: 1 }}
                     whileTap={{ scale: 0.7 }}
                   >
-                    {item.detalle}
+                    {item.details}
                   </motion.div>
                 })
               }

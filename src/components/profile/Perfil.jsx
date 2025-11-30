@@ -237,8 +237,8 @@ const Interface = ({
         <ChallengesList challenges={challenges} />
       </Collapse>
 
-      <h2>Ranking amigos</h2>
-      <RankingComponent isButtonReferral rankingData={referrals} />
+      {/* <h2>Ranking amigos</h2>
+      <RankingComponent isButtonReferral rankingData={referrals} /> */}
 
       {/* <h2>Referidos</h2>
       <Referrals {...{ referrals }} /> */}

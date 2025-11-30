@@ -1,7 +1,13 @@
 import useCommonStore from '@/hooks/commonStore'
 import CloseButton from '../closeButton/CloseButton'
 import styles from './bottomSheets.module.scss'
-import { motion, AnimatePresence, useMotionValue, animate, useDragControls } from 'framer-motion'
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  animate,
+  useDragControls,
+} from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 const BottomSheets = (props) => {
@@ -10,12 +16,22 @@ const BottomSheets = (props) => {
     children,
     isBottomSheets,
     setIsBottomSheets,
+    onClose,
   } = props
 
   const sheetVariants = {
-    hidden: { y: '100%', transition: { type: 'spring', stiffness: 300, damping: 30 } },
-    visible: { y: 0, transition: { type: 'spring', stiffness: 300, damping: 30 } },
-    exit: { y: '100%', transition: { type: 'spring', stiffness: 300, damping: 30 } },
+    hidden: {
+      y: '100%',
+      transition: { type: 'spring', stiffness: 300, damping: 30 },
+    },
+    visible: {
+      y: 0,
+      transition: { type: 'spring', stiffness: 300, damping: 30 },
+    },
+    exit: {
+      y: '100%',
+      transition: { type: 'spring', stiffness: 300, damping: 30 },
+    },
   }
 
   const overlayVariants = {
@@ -24,7 +40,7 @@ const BottomSheets = (props) => {
     exit: { opacity: 0 },
   }
 
-  const setStoreValue = useCommonStore(state => state.setStoreValue)
+  const setStoreValue = useCommonStore((state) => state.setStoreValue)
 
   // Estado local para controlar la animación de salida
   const [isAnimatingOut, setIsAnimatingOut] = useState(false)
@@ -40,13 +56,13 @@ const BottomSheets = (props) => {
     if (isBottomSheets) {
       // resetear estado de animación de salida
       setIsAnimatingOut(false)
-      
+
       // empezar desde abajo (fuera de pantalla)
       y.set(window.innerHeight)
-      animate(y, 0, { 
-        type: 'spring', 
-        stiffness: 300, 
-        damping: 30 
+      animate(y, 0, {
+        type: 'spring',
+        stiffness: 300,
+        damping: 30,
       })
 
       // Prevenir pull-to-refresh
@@ -65,6 +81,7 @@ const BottomSheets = (props) => {
 
       // Cleanup
       return () => {
+        onClose?.()
         document.removeEventListener('touchmove', preventDefault)
       }
     }
@@ -73,19 +90,21 @@ const BottomSheets = (props) => {
   const hideBottomSheets = () => {
     // primero activamos la animación de salida
     setIsAnimatingOut(true)
-    
+
     // después de la animación, actualizamos el estado
     setTimeout(() => {
       setStoreValue('isOpenLoginModal', false)
       if (typeof setIsBottomSheets === 'function') setIsBottomSheets(false)
     }, 300) // tiempo suficiente para que se vea la animación
+    onClose?.()
   }
 
   // Umbral de cierre por drag en píxeles
   const DRAG_CLOSE_THRESHOLD = 150
 
   // evitar error si la prop no es una función
-  const safeSetIsBottomSheets = typeof setIsBottomSheets === 'function' ? setIsBottomSheets : () => { }
+  const safeSetIsBottomSheets =
+    typeof setIsBottomSheets === 'function' ? setIsBottomSheets : () => {}
 
   return (
     <>
@@ -95,11 +114,13 @@ const BottomSheets = (props) => {
             className={styles.BottomSheets}
             id="bottomsheet-root"
             style={{ y }}
-            animate={isAnimatingOut ? { y: window?.innerHeight || 600 } : { y: 0 }}
+            animate={
+              isAnimatingOut ? { y: window?.innerHeight || 600 } : { y: 0 }
+            }
             transition={{
-              type: "spring",
+              type: 'spring',
               stiffness: 300,
-              damping: 30
+              damping: 30,
             }}
             drag="y"
             dragControls={dragControls}
@@ -107,16 +128,19 @@ const BottomSheets = (props) => {
             dragDirectionLock
             dragConstraints={{ top: 0, bottom: window?.innerHeight || 600 }}
             onDragEnd={async (e, info) => {
-              if (info.offset.y > DRAG_CLOSE_THRESHOLD || info.velocity.y > 500) {
+              if (
+                info.offset.y > DRAG_CLOSE_THRESHOLD ||
+                info.velocity.y > 500
+              ) {
                 // Iniciar animación de salida
                 setIsAnimatingOut(true)
                 hideBottomSheets()
               } else {
                 // Volver a la posición inicial
                 animate(y, 0, {
-                  type: "spring",
+                  type: 'spring',
                   stiffness: 300,
-                  damping: 30
+                  damping: 30,
                 })
               }
             }}

@@ -11,21 +11,23 @@ const CustomFetch = () => {
         status: 404,
       };
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_DURATION);
+    // const controller = new AbortController();
+    // const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_DURATION);
 
     try {
       const headers = getCookies(ctx);
       console.log(API_URL + path);
       const response = await fetch(API_URL + path, {
-        signal: controller.signal,
-        // credentials: "same-origin", // TODO averiguar para que sirve
+        // signal: controller.signal,
+        mode: 'cors',
+        credentials: "include",
+        referrerPolicy: 'no-referrer-when-downgrade',
         headers: {
           "Content-Type": "application/json",
           ...headers,
         },
       });
-      clearTimeout(timeoutId);
+      // clearTimeout(timeoutId);
       // if (!response.ok) {
       //   throw new Error(`Algo paso :(`);
       // }
@@ -43,7 +45,7 @@ const CustomFetch = () => {
       const resp = convertResponse(data);
       return resp;
     } catch (error) {
-      clearTimeout(timeoutId);
+      // clearTimeout(timeoutId);
       if (error.name === "AbortError") {
         console.error(
           `Request cancelada por timeout (3s) para la ruta ${path}`
@@ -56,11 +58,11 @@ const CustomFetch = () => {
       }
       console.error(
         `Error al obtener datos desde el servicio para la ruta ${path} method GET}`
-      );
-      console.log(error);
-      throw error;
+      )
+      console.log(error)
+      throw error
     }
-  };
+  }
 
   const post = (ctx, path, params, file?, extraHeaders = {}) => {
     if (!API_URL)
@@ -70,29 +72,34 @@ const CustomFetch = () => {
       };
     const url = API_URL + path;
     console.log(API_URL + path);
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => {
-      controller.abort(), TIMEOUT_DURATION;
-    });
-    let body;
+    // const controller = new AbortController();
+    // const timeoutId = setTimeout(() => {
+    //   controller.abort(), TIMEOUT_DURATION;
+    // });
+    let body
     const headers = {
-      credentials: "include",
+      // credentials: "include",
       ...getCookies(ctx),
-    };
+    }
+
     if (params) {
-      body = JSON.stringify({ ...params });
-      headers["Content-type"] = "application/json; charset=UTF-8";
+      body = params
+      body = JSON.stringify({ ...params })
+      headers["Content-type"] = "application/json"
     }
 
     if (file) body = file;
     return fetch(url, {
-      signal: controller.signal,
+      // signal: controller.signal,
+      mode: 'cors',
       method: "POST",
+      referrerPolicy: 'no-referrer-when-downgrade',
       headers,
       body,
+      credentials: 'include',
     })
       .then(async (res) => {
-        clearTimeout(timeoutId);
+        // clearTimeout(timeoutId);
         if (res.ok) {
           const json = await res.json();
           const formated = convertResponse(json);
@@ -106,7 +113,7 @@ const CustomFetch = () => {
         };
       })
       .catch((error) => {
-        clearTimeout(timeoutId);
+        // clearTimeout(timeoutId);
         if (error.name === "AbortError") {
           console.error(
             `Request cancelada por timeout (3s) para la ruta ${path}`

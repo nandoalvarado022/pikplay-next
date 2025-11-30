@@ -634,6 +634,7 @@ main {
     // background-image: url(/images/backgrounds/bg-gamer.jpg);
     background-attachment: fixed;
     &::before {
+      display: none;
       // background: #0d0e32b5;
       background: #0d0e32f5;
       // background-image: url(/images/backgrounds/general-bg.png);
@@ -1188,4 +1189,17 @@ a {
   60% {
     transform: scale(1, 1);
   }
+}
+
+@keyframes levitate {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.levitate {
+  animation: levitate 2.5s ease-in-out infinite;
 }
