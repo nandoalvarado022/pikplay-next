@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 8080",
+    "dev:webpack": "next dev -p 8080",
     "build": "next build",
     "start": "next start -p 80",
     "lint": "next lint"
@@ -44,6 +45,7 @@
   "devDependencies": {
     "@types/node": "22.10.2",
     "@types/react": "19.0.1",
+    "@svgr/webpack": "6.5.1",
     "autoprefixer": "10.4.20",
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.1",

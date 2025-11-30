@@ -73,7 +73,7 @@ export const AuthorInformation = (props) => {
       >
         <img
           className={`${styles.star} ${isFavorite && styles.active}`}
-          src="/images/icons/star.png"
+          src="/images/icons/star-single.png"
         />
         <b>{storeName || name}</b>
         <small

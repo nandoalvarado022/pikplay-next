@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { create } from "zustand"
 
 // Custom
@@ -17,12 +17,12 @@ const useWordChallenge = (setStoreValue) => {
   } = useWordChallengeStore(state => state)
 
   const { length: wordLength } = triviaInformation || {}
+  const inputRefs = useRef([])
   const [triviaId, setTriviaId] = useState(null)
   const [triviaQuestion, setTriviaQuestion] = useState("")
   const [triviaOptions, setTriviaOptions] = useState([])
   const [selectedOption, setSelectedOption] = useState(null)
   const setIAMessage = useIAStore(state => state.setIAMessage)
-  // const { cleanWord } = useOtpInput(wordLength)
 
   const getTrivia = (sellerUid) => {
     getTriviaSrv(null, sellerUid)
@@ -48,19 +48,14 @@ const useWordChallenge = (setStoreValue) => {
 
   const handleKeyUp = (event, index) => {
     const key = event?.key
+
     if (key === "Backspace" && index > 0) {
       const updatedWord = [...word]
       const currentLetter = updatedWord[index]
+      
+      if (currentLetter) updatedWord[index] = ""
 
-      // word.length === 0
-      //   ? (updatedWord[index - 1] = "")
-      //   : (updatedWord[index] = "")
-
-      // if (currentWord.length === 0) 
-      set({ letterIndexActive: index - 1 })
-      // set({ word: updatedWord })
-
-      return
+      set({ letterIndexActive: currentLetter ? index : index - 1 })
     }
   }
 
@@ -70,25 +65,19 @@ const useWordChallenge = (setStoreValue) => {
     const letter = event.currentTarget?.value
     const key = event?.key
 
-    // if (letter === "") return null
+    if (letter === " ") return null // Evitar espacios
 
     updatedWord[index] = letter
     if (letter && index < wordLength - 1 && !key) {
       set({ letterIndexActive: index + 1 })
     }
 
-    // if (!letter && index > 0 && !key) {
-    //     debugger
-    //     setLetterIndexActive(index - 1)
-    // }
-    // debugger
-    // minusculas
-    set({ word: updatedWord.map(letter => letter.toLowerCase()) })
+    set({ word: updatedWord.map(letter => letter?.toLowerCase()) })
   }
 
-  const handleSendResponse = (word) => {
+  const handleSendResponse = (word, elapsedMilliseconds, onCloseCallback) => {
     set({ loading: true })
-    postTriviaResponseSrv(null, { response: word, triviaId: triviaInformation.id })
+    postTriviaResponseSrv(null, { response: word, triviaId: triviaInformation.id, duration: elapsedMilliseconds })
       .then(res => {
         set({ loading: false })
         const { data: { closeModal, isCleanWord, messageTop }, message } = res
@@ -105,12 +94,13 @@ const useWordChallenge = (setStoreValue) => {
         set({ loading: false })
         console.error(err)
       })
+      .finally(() => {
+        onCloseCallback?.()
+      })
   }
 
   const cleanWord = () => {
-    set({ word: Array(wordLength).fill("") })
-    // setLetterIndexActive(0)
-    // inputRefs.current[0].focus()
+    set({ word: Array(wordLength).fill(""), letterIndexActive: 0, triviaInformation: null })
   }
 
   useEffect(() => {
@@ -127,6 +117,8 @@ const useWordChallenge = (setStoreValue) => {
     getTrivia,
     handleChange,
     handleKeyUp,
+    cleanWord,
+    inputRefs,
     handleSendResponse,
     selectedOption,
     setSelectedOption,

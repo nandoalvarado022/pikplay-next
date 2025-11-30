@@ -37,7 +37,7 @@ const Onboarding = (props) => {
     {
       background: "https://i.pinimg.com/564x/f4/d4/b9/f4d4b991d2bccaf2202b8a07bae108de.jpg",
       html: <>¿Que son las <span className={styles.yellow}>Pikcoins?</span></>,
-      image: "/images/icons/coin-v2.svg",
+      image: "/images/icons/coin.svg",
       imageStyle: {
         width: 70,
       },

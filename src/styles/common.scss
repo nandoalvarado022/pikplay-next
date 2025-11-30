@@ -1,5 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
+// Fonts
+// @import url("https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
 
 // Custom
 @import "./variables.scss";
@@ -253,6 +255,13 @@ span.MuiBadge-badge {
 }
 
 // Toast
+.Toastify__toast-container {
+  border-radius: 10px;
+  left: 10px;
+  overflow: hidden;
+  top: 10px;
+  width: calc(100% - 20px);
+}
 /*
 .Toastify__toast-container {
   color: white;
@@ -625,6 +634,7 @@ main {
     // background-image: url(/images/backgrounds/bg-gamer.jpg);
     background-attachment: fixed;
     &::before {
+      display: none;
       // background: #0d0e32b5;
       background: #0d0e32f5;
       // background-image: url(/images/backgrounds/general-bg.png);
@@ -1179,4 +1189,17 @@ a {
   60% {
     transform: scale(1, 1);
   }
+}
+
+@keyframes levitate {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.levitate {
+  animation: levitate 2.5s ease-in-out infinite;
 }

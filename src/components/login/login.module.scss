@@ -1,68 +1,196 @@
 .LoginComponent {
-  text-align: center;
+  // text-align: center;
+  box-sizing: border-box;
+  // max-height: 430px;
+  // overflow-y: scroll;
   width: 100%;
-  .playButton {
-    margin-top: 0px;
+
+  /* Gallery */
+  .gallery {
+    background: transparent;
+    // border-radius: 10px;
+    // margin: 10px auto 20px;
+    overflow: hidden;
     width: 100%;
   }
-  :global(.contryAndPhone) {
+
+  .slides {
     display: flex;
-    [role="combobox"] {
-      padding: 0 10px;
-    }
-  }
-}
-
-.LoginComponent__Modal {
-  span.subtitle {
-    color: #6b3295;
-    display: block;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: normal;
+    transition: transform 400ms ease;
+    will-change: transform;
   }
 
-  .capchaContent {
-    transform: scale(0.838);
-    left: -20px;
-    position: relative;
-    width: max-content;
-    iframe {
-      // width: 320px;
-    }
+  .slide {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff10; /* leve */
+    // padding: 6px 0;
   }
 
-  .terminosCondiciones {
-    background: #b55cc02b;
-    border-radius: 5px;
-    display: block;
-    font-size: 12px;
-    margin-top: 10px;
-    padding: 10px 15px;
-    a {
-      display: inline-block;
-    }
+  .dots {
+    display: none;
+    // display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 8px;
   }
-  :global(.MuiDialogContent-root) {
-    overflow-x: hidden;
-    &::-webkit-scrollbar-thumb {
-      // background: linear-gradient(45deg, #c93530, #ff4b2b); /* Degradado facherito */
-      background-color: #c93530;
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #c7b5e6;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 200ms ease, transform 120ms ease;
+  }
+
+  .dot:hover {
+    transform: scale(1.1);
+  }
+
+  // End gallery
+
+  .content {
+    margin: 20px;
+
+    .tabs {
+      color: #565656;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+
+      .item {
+        position: relative;
+        padding-bottom: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        padding: 6px;
+        transition: color 200ms ease, transform 120ms ease;
+        will-change: transform;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 2px;
+          width: 100%;
+          background: #7138c1;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 200ms ease;
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+
+        &.selected {
+          background: #f4f4f4;
+          color: #7138c1;
+        }
+
+        &.selected::after {
+          transform: scaleX(1);
+        }
+
+        svg {
+          color: #565656;
+          height: 24px;
+          width: 24px;
+        }
+
+        img {
+          height: 20px;
+          margin: 0 0 -4px 4px;
+          width: 20px;
+        }
+      }
+    }
+
+    .dot.active {
+      background: #7138c1;
+    }
+    .playButton {
+      margin-top: 0px;
+      width: 100%;
+    }
+
+    :global(.contryAndPhone) {
+      display: flex;
+
+      [role="combobox"] {
+        padding: 0 10px;
+      }
+    }
+
+    h2 {
+      color: #7138c1;
+    }
+
+    img.main-image {
+      height: 140px;
+      width: auto;
+    }
+
+    span.subtitle {
+      color: #6b3295;
+      display: block;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: normal;
+    }
+
+    .terminosCondiciones {
+      // background: #b55cc02b;
       border-radius: 5px;
-    }
-    &::-webkit-scrollbar {
-      width: 2px; /* Para vertical */
-      height: 2px; /* Para horizontal */
-    }
-    &::-webkit-scrollbar-track {
-      background: #740e9f; /* Fondo oscuro */
-      border-radius: 5px;
-    }
-  }
+      display: block;
+      margin: 10px 0 20px;
+      text-align: center;
 
-  .inputCode {
-    text-align: center;
-    input {
+      a {
+        color: #28A1EB;
+        display: inline-block;
+      }
+    }
+
+    :global(.MuiDialogContent-root) {
+      overflow-x: hidden;
+
+      &::-webkit-scrollbar-thumb {
+        // background: linear-gradient(45deg, #c93530, #ff4b2b); /* Degradado facherito */
+        background-color: #c93530;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 2px;
+        /* Para vertical */
+        height: 2px;
+        /* Para horizontal */
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #740e9f;
+        /* Fondo oscuro */
+        border-radius: 5px;
+      }
+
+      .inputCode {
+        text-align: center;
+
+        input {
+          text-align: center;
+        }
+      }
+    }
+
+    .actions {
+      margin: 10px 0;
       text-align: center;
     }
   }

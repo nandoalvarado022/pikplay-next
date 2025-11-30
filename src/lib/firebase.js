@@ -19,11 +19,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const apps = getApps();
-let app;
+// let app;
 
-if (!apps.length) {
- app =  initializeApp(firebaseConfig);
-}
+// if (!apps.length) {
+//  app =  initializeApp(firebaseConfig);
+// }
+
+const app = apps.length ? apps[0] : initializeApp(firebaseConfig);
 
 let analytics;
 if (typeof window !== "undefined") {
