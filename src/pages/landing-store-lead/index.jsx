@@ -10,6 +10,8 @@ import { Router } from 'next/router'
 import WordChallenge from '@/components/wordChallenge/WordChallenge'
 import RankingComponent from '@/components/ranking/Ranking'
 import BottomSheets from '@/components/bottomSheets/BottomSheets'
+import GalleryComponent from '@/components/gallery/Gallery'
+import CouponTicket from '@/components/couponTicket/CouponTicket'
 
 const LandingStoreLead = () => {
   const router = useRouter()
@@ -25,6 +27,64 @@ const LandingStoreLead = () => {
     // "Agradece a tus clientes por ser fieles a tu marca",
     'Convierte cada compra en una experiencia memorable',
   ]
+
+  const galleryItems = ['https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores%202.webp?alt=media&token=e6f32157-8171-4e43-9437-1d39203a71c6', 'https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores%203.webp?alt=media&token=e6925fa5-857f-44fe-b55e-5e842fab00f5', 'https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores.webp?alt=media&token=ff5ed6e3-8a49-4e37-8ec0-5725f5717e31']
+
+  const coupons = [
+    {
+      storeLogo: '/images/users/falamusique/logo.jpg',
+      backgroundImage: '/images/backgrounds/bg-falamusique.jpg',
+      storeName: 'Fallamusique',
+      description: 'Gratis primera clase',
+      discount: '100% OFF',
+      expirationDate: '31 Dic 2025',
+    },
+    {
+      storeLogo: '/images/users/falamusique/logo.jpg',
+      backgroundImage: '/images/backgrounds/bg-falamusique.jpg',
+      storeName: 'Fallamusique',
+      description: 'Obtén 10% de descuento en tu mensualidad',
+      discount: '10% OFF',
+      expirationDate: '31 Dic 2025',
+    },
+    {
+      storeLogo: '/images/users/serviya/logo.png',
+      backgroundImage: '/images/users/serviya/servicios.png',
+      storeName: 'ServiYA',
+      description: 'Obtén $20.000 de descuento en tu primer servicio',
+      discount: '$20.000 OFF',
+      expirationDate: '31 Dic 2025',
+    },
+  ]
+
+  const [currentCoupon, setCurrentCoupon] = React.useState(0)
+  const [touchStartCoupon, setTouchStartCoupon] = React.useState(0)
+  const [touchEndCoupon, setTouchEndCoupon] = React.useState(0)
+
+  const handleTouchStartCoupon = (e) => {
+    setTouchStartCoupon(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchMoveCoupon = (e) => {
+    setTouchEndCoupon(e.targetTouches[0].clientX)
+  }
+
+  const handleTouchEndCoupon = () => {
+    if (!touchStartCoupon || !touchEndCoupon) return
+    const distance = touchStartCoupon - touchEndCoupon
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+
+    if (isLeftSwipe && currentCoupon < coupons.length - 1) {
+      setCurrentCoupon(currentCoupon + 1)
+    }
+    if (isRightSwipe && currentCoupon > 0) {
+      setCurrentCoupon(currentCoupon - 1)
+    }
+
+    setTouchStartCoupon(0)
+    setTouchEndCoupon(0)
+  }
 
   React.useEffect(() => {
     const currentMessage = messages[currentIndex]
@@ -116,10 +176,13 @@ const LandingStoreLead = () => {
                 realistic
                 onClick={() => setIsShowRanking(true)}
               >
-                Revisa como va el Ranking<br />
-                Feria Mallorquín
+                Ranking Feria Mallorquín
               </Button>
             </center>
+          </section>
+
+          <section>
+            <GalleryComponent items={galleryItems} title="Eventos anteriores" />
           </section>
 
           {/* Benefits Section */}
@@ -224,6 +287,36 @@ const LandingStoreLead = () => {
               <img src="/images/landing-store/pepsi-logo.png" alt="Pepsi" />
             </div>
           </section> */}
+          <section className={styles.couponsSection}>
+            <h2 className={styles.sectionTitle}>Bonos de aliados</h2>
+            <div className={styles.couponsCarousel}>
+              <div
+                className={styles.couponsSlides}
+                style={{ transform: `translateX(-${currentCoupon * 100}%)` }}
+                onTouchStart={handleTouchStartCoupon}
+                onTouchMove={handleTouchMoveCoupon}
+                onTouchEnd={handleTouchEndCoupon}
+              >
+                {coupons.map((coupon, idx) => (
+                  <div key={idx} className={styles.couponSlide}>
+                    <CouponTicket {...coupon} />
+                  </div>
+                ))}
+              </div>
+              <div className={styles.couponsDots}>
+                {coupons.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    className={`${styles.dot} ${currentCoupon === idx ? styles.active : ''}`}
+                    onClick={() => setCurrentCoupon(idx)}
+                    aria-label={`Ir al cupón ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+
           <div className={styles.titleWrapper}>
             <img
               alt="Estrellas"
@@ -231,7 +324,7 @@ const LandingStoreLead = () => {
               src="/images/icons/stars.svg"
             />
             <h2 className={`${styles.benefitsTitle} ${styles.forYou}`}>
-              Lo que tenemos
+              Lo que tenemos<br />
               <span className={styles.highlight}>para ti</span>
               <img src="/images/icons/pepe-guinio.svg" />
             </h2>

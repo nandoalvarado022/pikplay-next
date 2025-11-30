@@ -1,4 +1,10 @@
 .GalleryComponent {
+    h2 {
+        color: #7c3aed;
+        font-size: 22px;
+        text-align: center;
+    }
+
     .items {
         display: flex;
         gap: 20px;
