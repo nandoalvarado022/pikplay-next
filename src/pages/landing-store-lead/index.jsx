@@ -34,8 +34,8 @@ const LandingStoreLead = () => {
     {
       storeLogo: '/images/users/falamusique/logo.jpg',
       backgroundImage: '/images/backgrounds/bg-falamusique.jpg',
-      storeName: 'Fallamusique',
-      description: 'Gratis primera clase',
+      storeName: 'Falamusique',
+      description: 'Gratis primera clase | Tecnica Vocal o Instrumento Musical',
       discount: '100% OFF',
       expirationDate: '31 Dic 2025',
     },

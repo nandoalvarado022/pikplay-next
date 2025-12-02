@@ -212,7 +212,7 @@ export default function LoginInterface({
           type='text'
         />} */}
         <h2>Ingresa tu número de teléfono</h2>
-        <div>Te enviaremos un mensaje a whatsap con un código de ingreso</div>
+        <div>Te enviaremos un mensaje a <b>whatsapp</b> con un código de ingreso</div>
         <br />
         <div
           className={styles.contryAndPhone}
