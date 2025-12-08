@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@/components/button/Button'
 import styles from './landingStoreLead.module.scss'
 
@@ -15,20 +15,40 @@ import CouponTicket from '@/components/couponTicket/CouponTicket'
 
 const LandingStoreLead = () => {
   const router = useRouter()
-  const [showTrivia, setShowTrivia] = React.useState(false)
-  const [currentText, setCurrentText] = React.useState('')
-  const [currentIndex, setCurrentIndex] = React.useState(0)
-  const [isDeleting, setIsDeleting] = React.useState(false)
+  const [triviaSelected, setTriviaSelected] = useState(null)
+  const [currentText, setCurrentText] = useState('')
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isDeleting, setIsDeleting] = useState(false)
   const { userLogged, setStoreValue } = useCommonStore((state) => state)
-  const [isShowRanking, setIsShowRanking] = React.useState(false)
-  const RANKING_FERIA_MALLORQUIN = 8
+  const [rankingSelected, setRankingSelected] = useState(false)
   const messages = [
     'El agradecimiento es la memoria del corazón',
     // "Agradece a tus clientes por ser fieles a tu marca",
     'Convierte cada compra en una experiencia memorable',
   ]
 
-  const galleryItems = ['https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores%202.webp?alt=media&token=e6f32157-8171-4e43-9437-1d39203a71c6', 'https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores%203.webp?alt=media&token=e6925fa5-857f-44fe-b55e-5e842fab00f5', 'https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores.webp?alt=media&token=ff5ed6e3-8a49-4e37-8ec0-5725f5717e31']
+  const triviasList = [
+    {
+      sellerUid: 186, triviaTag: 'Feria Mallorquín', name: 'Feria Mallorquín', rankingId: 8, styles: {
+        backgroundRepeat: 'no-repeat',
+        backgroundImage: 'url("/images/backgrounds/image-mallorquin.png")'
+      }
+    },
+    {
+      sellerUid: 184, triviaTag: '', name: 'Así es Barranquilla', rankingId: 9, styles: {
+        backgroundImage: 'url("/images/users/falamusique/falamusique-bg.jpg")',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center -80px',
+      }
+    },
+  ]
+
+  const galleryItems = [
+    { alt: 'Caribe Conf', src: 'https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores%202.webp?alt=media&token=e6f32157-8171-4e43-9437-1d39203a71c6' },
+    { alt: 'Caribe Conf', src: 'https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores%203.webp?alt=media&token=e6925fa5-857f-44fe-b55e-5e842fab00f5' },
+    { alt: 'Caribe Conf', src: 'https://firebasestorage.googleapis.com/v0/b/pikplay-72843.firebasestorage.app/o/gallery%2Fganadores.webp?alt=media&token=ff5ed6e3-8a49-4e37-8ec0-5725f5717e31' },
+  ]
 
   const coupons = [
     {
@@ -86,7 +106,7 @@ const LandingStoreLead = () => {
     setTouchEndCoupon(0)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const currentMessage = messages[currentIndex]
     const typingSpeed = isDeleting ? 50 : 50
     const pauseTime = isDeleting ? 500 : 30000
@@ -112,12 +132,13 @@ const LandingStoreLead = () => {
     return () => clearTimeout(timer)
   }, [currentText, isDeleting, currentIndex])
 
-  const handleMallorquinEvent = () => {
+  const handleTrivia = (trivia) => {
+    const { sellerUid } = trivia
     if (!userLogged?.uid) {
       setStoreValue('isOpenLoginModal', true)
       setStoreValue('leftMenuBar', { isShow: false })
     } else {
-      setShowTrivia(true)
+      setTriviaSelected(trivia)
     }
   }
 
@@ -127,59 +148,60 @@ const LandingStoreLead = () => {
       description="Participa en la Feria Mallorquín y juega a la trivia para ganar premios. Inscribe tu comercio y agradece a tus clientes por ser fieles a tu marca."
     >
       <div className={styles.LandingStoreLeadPage}>
-        {showTrivia && (
+        {triviaSelected && (
           <WordChallenge
-            onCloseCallback={() => setShowTrivia(false)}
-            sellerUid={186}
+            onCloseCallback={() => setTriviaSelected(null)}
+            sellerUid={triviaSelected.sellerUid}
           />
         )}
         <BottomSheets
-          isBottomSheets={isShowRanking}
-          onClose={() => setIsShowRanking(false)}
+          isBottomSheets={rankingSelected}
+          onClose={() => setRankingSelected(false)}
         >
           {/* Ranking */}
           <RankingComponent
-            callbackParticipar={() => setIsShowRanking(false)}
+            callbackParticipar={() => setRankingSelected(false)}
             isButtonJoinRanking
             isPointsByExperience={false}
-            rankingId={RANKING_FERIA_MALLORQUIN}
+            rankingId={rankingSelected}
           />
         </BottomSheets>
         <Header />
         <main className={styles.LandingStoreLead}>
           {/* Hero Section */}
-          <section className={styles.hero}>
+          <h2>Trivias activas</h2>
+          {/* Listando las trivias */}
+          {triviasList.map(item => <section className={styles.hero} style={item.styles} key={item.sellerUid}>
             <div className={styles.bg}></div>
             <div className={styles.content}>
               <div className={styles.heroBadges}>
-                <span className={styles.badge}>Feria Mallorquín</span>
+                <span className={styles.badge} onClick={() => setRankingSelected(item.rankingId)}>
+                  Revisa el Ranking
+                </span>
                 <span
                   className={`${styles.badge} ${styles.badgeRed}`}
-                  onClick={handleMallorquinEvent}
+                  onClick={() => handleTrivia(item)}
                 >
                   Juega a la trivia aquí
                 </span>
               </div>
-              <h1 className={styles.heroTitle} onClick={handleMallorquinEvent}>
-                Inscribe tu <span className={styles.highlight}>comercio</span>{' '}
-                en
-                <br />
-                Ciudad Mallorquín
+              <h1 className={styles.heroTitle} onClick={() => handleTrivia(item)}>
+                Participa en las trivias y gana muchos <span className={styles.highlight}>premios</span>{' '}
               </h1>
             </div>
-          </section>
+          </section>)}
 
-          <section>
+          {/* <section>
             <center className="m-b-20">
               <Button
                 color="blue"
                 realistic
-                onClick={() => setIsShowRanking(true)}
+                onClick={() => setRankingSelected(true)}
               >
                 Ranking Feria Mallorquín
               </Button>
             </center>
-          </section>
+          </section> */}
 
           <section>
             <GalleryComponent items={galleryItems} title="Eventos anteriores" />

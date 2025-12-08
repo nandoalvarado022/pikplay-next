@@ -67,7 +67,7 @@ const CustomHeader = React.memo(({ handleClickLogo }) => {
             Compra y vende subiendo de nivel
           </div>
         </motion.div>
-        <span className={styles.beta}>Beta</span>
+        {/* <span className={styles.beta}>Beta</span> */}
         {/* TODO Descomentar cuando se implementen los productos */}
         {/* <SearchBox
           inputText={inputText}

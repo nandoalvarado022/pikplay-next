@@ -62,7 +62,7 @@ const WordChallenge = (props) => {
   const startTimer = () => {
     const now = Date.now();
     setStartTime(now);
-    
+
     intervalRef.current = setInterval(() => {
       setSecondsLeft((prev) => {
         if (prev <= 1) {
@@ -93,8 +93,8 @@ const WordChallenge = (props) => {
       // TransitionComponent={Transition}
       className={styles.WordChallenge}
       onClose={() => {
-        onCloseCallback()
         set({ showModal: false })
+        onCloseCallback?.()
       }}
     >
       <DialogContent>
@@ -102,7 +102,7 @@ const WordChallenge = (props) => {
           <AnimatePresence initial={true} custom={direction}>
             <p className={styles.title}>Trivia Challenge</p>
             {/* Time */}
-            { secondsLeft > 0 && <div className={styles["timer-wrapper"]}>
+            {secondsLeft > 0 && <div className={styles["timer-wrapper"]}>
               <svg width="160" height="160">
                 <circle
                   className={styles.bg}
@@ -138,11 +138,11 @@ const WordChallenge = (props) => {
             {/* Trivia opciones */}
             {options && options.length > 0 && <div className={styles.triviaOptions}>
               {
-                options && options.map(item => {
+                options && options.map((item, index) => {
 
                   return <motion.div
                     className={selectedOption == item.details ? styles.selected : null}
-                    key={item.details}
+                    key={`option-${index}`}
                     onClick={() => handlerSelectOption(item.details)}
                     whileHover={{ scale: 1 }}
                     whileTap={{ scale: 0.7 }}
@@ -157,7 +157,7 @@ const WordChallenge = (props) => {
               {errorMessage}
             </p>}
 
-            {selectedOption && <Button fullWidth color="main" onClick={handleValidate}>Enviar respuesta</Button>}
+            <Button disabled={!selectedOption} realistic fullWidth color="secondary" onClick={handleValidate}>Enviar respuesta</Button>
             <small key="subtitle" className={`${styles.subtitle}`}>
               Puedes obtener muchos{" "}
               <span className="animatedZoom">puntos de categoria y pikcoins</span>

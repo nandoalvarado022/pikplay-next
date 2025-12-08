@@ -94,7 +94,67 @@ const RankingComponent = (props) => {
     <div className={styles.RankingComponent}>
       <div className={styles.bg}>
       </div>
+
       <div className={styles.content}>
+        <h2>Ranking La Arenosa</h2>
+        {rankingData && rankingData.length >= 3 && (
+          <div className={styles.top}>
+            <motion.div
+              className={styles.second}
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <ProfileImage
+                isZoom
+                percentageBar={rankingData[1]?.points / 100 || 0}
+                picture={rankingData[1]?.picture}
+                small
+              />
+              <div className={styles.name}>{rankingData[1]?.name}</div>
+              <div className={styles.points}>{formatNumber(rankingData[1]?.points || 0)} Pts.</div>
+            </motion.div>
+
+            <motion.div
+              className={styles.first}
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+            >
+              <span className={styles.crown}>
+                <img src="/images/elements/crown.svg" />
+              </span>
+              <div className={styles.imgLights__container}>
+                <img className={`rotating ${styles.imgLights}`} src="/images/elements/luces.png" />
+              </div>
+              <ProfileImage
+                isZoom
+                percentageBar={rankingData[0]?.points / 100 || 0}
+                picture={rankingData[0]?.picture}
+                small
+              />
+              <div className={styles.name}>{rankingData[0]?.name}</div>
+              <div className={styles.points}>{formatNumber(rankingData[0]?.points || 0)} Pts.</div>
+            </motion.div>
+
+            <motion.div
+              className={styles.third}
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0 }}
+            >
+              <ProfileImage
+                isZoom
+                percentageBar={rankingData[2]?.points / 100 || 0}
+                picture={rankingData[2]?.picture}
+                small
+              />
+              <div className={styles.name}>{rankingData[2]?.name}</div>
+              <div className={styles.points}>{formatNumber(rankingData[2]?.points || 0)} Pts.</div>
+            </motion.div>
+          </div>
+        )}
+
         {/* <div className={`contentTitle`}>
           <h1>
             <StarIcon className={styles.starIcon} />
@@ -136,17 +196,17 @@ const RankingComponent = (props) => {
         <ul className={styles.list}>
           <AnimatePresence>
             {rankingData &&
-              rankingData.length > 0 &&
-              rankingData.map((member, index) => {
+              rankingData.length > 3 &&
+              rankingData.slice(3).map((member, index) => {
                 const { league } = member
                 const percentageBar = member.points / 100
+                const actualPosition = index + 4
 
                 return (
                   <motion.div
                     layout
                     transition={{ type: "spring", stiffness: 500, damping: 25 }}
-                    className={`${index == 0 ? "starsFallingDown" : ""} ${styles.item
-                      }`}
+                    className={styles.item}
                     // onClick={() =>
                     //   member.pointsDetail &&
                     //   handlePointsDetail(member.pointsDetail)
@@ -154,7 +214,7 @@ const RankingComponent = (props) => {
                     key={member.uid}
                   >
                     <div className={styles.number}>
-                      {index + 1}
+                      {actualPosition}
                       <span className={styles.arrow}>«</span>
                     </div>
                     <div className={styles.picture}>

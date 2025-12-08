@@ -10,11 +10,25 @@
         gap: 20px;
         height: 80px;
         margin: 10px auto 20px;
+
         div {
             height: 100%;
         }
+
         .item {
             border-radius: 10px;
+            position: relative;
         }
+    }
+
+    .alt {
+        background: #00000078;
+        border-radius: 0 0 10px 6px;
+        bottom: 2px;
+        box-sizing: border-box;
+        font-size: 12px;
+        padding: 2px 4px;
+        position: absolute;
+        width: 100%;
     }
 }

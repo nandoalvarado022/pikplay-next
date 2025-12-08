@@ -200,7 +200,6 @@ const Interface = ({
         <span>este mes has acumulado
           &nbsp;{currentPikcoins} Pikcoins
         </span>
-        <br />
         <span>
           sigue participando, refiriendo y ganando con Pikplay
         </span>
