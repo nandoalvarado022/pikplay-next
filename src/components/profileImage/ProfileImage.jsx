@@ -3,6 +3,7 @@ import styles from './profileImage.module.scss';
 import React, { useEffect, useState } from 'react';
 import CreateIcon from '@mui/icons-material/Create';
 import Zoom from 'react-medium-image-zoom'
+import { Menu, MenuItem } from '@mui/material';
 
 import { getImageSize } from '@/lib/utils';
 import { getExperiencesSrv } from '@/services/experience';
@@ -10,6 +11,32 @@ import { useProfileImage } from '@/hooks/useProfileImage';
 
 const ProfileImage = ({ className, handleClickImage, isZoom, picture, small, changeAvatar, percentageBar }) => {
   const { handlerInputFile, fileInputRef } = useProfileImage()
+  const [anchorEl, setAnchorEl] = useState(null)
+  const openMenu = Boolean(anchorEl)
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleMenuClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleChangeImage = () => {
+    handleMenuClose()
+    fileInputRef.current.click()
+  }
+
+  const handleChangeName = () => {
+    handleMenuClose()
+    setTimeout(() => {
+      const element = document.getElementById('perfil--input')
+      if (element) {
+        element.focus()
+        element.select()
+      }
+    }, 150)
+  }
 
   const wrapperZoom = (picture) => {
     if (isZoom) return <Zoom>
@@ -34,14 +61,34 @@ const ProfileImage = ({ className, handleClickImage, isZoom, picture, small, cha
           <circle className={styles.fg} />
         </svg>
         {changeAvatar && (
-          <button
-            className={styles.profileChangeImage}
-            title="Cambiar foto de perfil"
-            onClick={() => fileInputRef.current.click()}>
-            <input ref={fileInputRef} onChange={handlerInputFile} type="file" />
-            {/* <img src="/images/icons/picture.svg" alt="Cambiar foto de perfil" /> */}
-            <CreateIcon className={`icon ${styles.icon}`} id="profile--change-picture" />
-          </button>
+          <>
+            <button
+              className={styles.profileChangeImage}
+              title="Cambiar foto de perfil"
+              onClick={handleMenuOpen}
+            >
+              {/* <img src="/images/icons/picture.svg" alt="Cambiar foto de perfil" /> */}
+              <CreateIcon className={`icon ${styles.icon}`} id="profile--change-picture" />
+            </button>
+            <input 
+              ref={fileInputRef} 
+              onChange={handlerInputFile} 
+              type="file" 
+              style={{ display: 'none' }} 
+            />
+            <Menu
+              anchorEl={anchorEl}
+              open={openMenu}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleChangeImage}>
+                Cambiar imagen
+              </MenuItem>
+              <MenuItem onClick={handleChangeName}>
+                Cambiar nombre
+              </MenuItem>
+            </Menu>
+          </>
         )}
       </picture>
     </div>

@@ -29,15 +29,20 @@ const useWordChallenge = (setStoreValue) => {
       .then((res) => {
         const { code } = res || {}
 
-        if (code == 500) return
-        if (res.data.messagePepe) {
+        if (code == 500) return null
+        if (res.data?.messagePepe) {
           // debugger
           setIAMessage(<>{res.data.messagePepe.message}</>)
           set({ showModal: false })
 
-          return
+          return null
         }
-        set({ triviaInformation: res.data })
+        set({
+          triviaInformation: {
+            ...res.data,
+            sellerUid,
+          }
+        })
         setShowModal(true)
         // setTriviaId(res.data.id)
         // setWordLength(res.data.length)
@@ -52,7 +57,7 @@ const useWordChallenge = (setStoreValue) => {
     if (key === "Backspace" && index > 0) {
       const updatedWord = [...word]
       const currentLetter = updatedWord[index]
-      
+
       if (currentLetter) updatedWord[index] = ""
 
       set({ letterIndexActive: currentLetter ? index : index - 1 })
@@ -96,6 +101,11 @@ const useWordChallenge = (setStoreValue) => {
       })
       .finally(() => {
         onCloseCallback?.()
+        setTimeout(() => {
+          // TODO: Si hay un nuevo reto, cargarlo
+          getTrivia(triviaInformation.sellerUid)
+          set({ showModal: true })
+        }, 1500)
       })
   }
 
@@ -114,12 +124,12 @@ const useWordChallenge = (setStoreValue) => {
   }, [])
 
   return {
+    cleanWord,
     getTrivia,
     handleChange,
     handleKeyUp,
-    cleanWord,
-    inputRefs,
     handleSendResponse,
+    inputRefs,
     selectedOption,
     setSelectedOption,
     setShowModal,
@@ -137,7 +147,7 @@ export const useWordChallengeStore = create((set) => ({
   letterIndexActive: 0,
   loading: false,
   showModal: false,
-  triviaInformation: { id: null },
+  triviaInformation: { id: null, sellerUid: null },
   wordLength: 0,
   word: Array(0).fill(''),
   setShowModal: (value) => set({ showModal: value }),

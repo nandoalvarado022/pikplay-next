@@ -41,13 +41,14 @@
 
   .content {
     /* contenedor interno que animamos con framer */
-    width: 100%;
-    box-sizing: border-box;
-    flex: 1;
-    overflow-y: auto;
     -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
     // padding-bottom: 20px;
-    overscroll-behavior-y: contain; /* Prevenir pull-to-refresh */
+    box-sizing: border-box;
+    flex: 1;
+    // overflow-y: auto;
+    overflow-y: scroll;
+    // overscroll-behavior-y: contain; /* Prevenir pull-to-refresh */
+    width: 100%;
   }
 
   .borderColor {

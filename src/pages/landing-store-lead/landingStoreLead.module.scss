@@ -2,21 +2,26 @@
   background: linear-gradient(180deg, #fff 0%, #e8d9ffd6 100%);
   min-height: 100vh;
   padding-bottom: 40px;
+
+  h2 {
+    color: #7c3aed;
+    font-size: 22px;
+    text-align: center;
+  }
 }
 
 .LandingStoreLead {
   max-width: 420px;
   margin: 0 auto;
-  padding: 80px 20px 60px;
+  padding: 60px 20px 60px;
 }
 
 .hero {
-  background-image: url("/images/backgrounds/image-mallorquin.png");
   background-repeat: no-repeat;
   border-radius: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   overflow: hidden;
-  padding: 20px 20px 10px;
+  padding: 10px;
   position: relative;
 
   .bg {
@@ -135,7 +140,7 @@
   margin: 0 auto 20px;
   position: relative;
   text-align: center;
-  text-shadow: -2px -2px 2px #ffffff;
+  // text-shadow: -2px -2px 2px #ffffff;
   width: 220px;
   z-index: 1;
   min-height: 75px;
@@ -297,15 +302,6 @@ h2.forYou {
 
 .couponsSection {
   margin: 40px 0;
-
-  .sectionTitle {
-    text-align: center;
-    font-size: 28px;
-    font-weight: 800;
-    color: #7138c1;
-    margin-bottom: 30px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  }
 }
 
 .couponsCarousel {
@@ -344,7 +340,6 @@ h2.forYou {
 
     &.active {
       background: #7138c1;
-      width: 30px;
       border-radius: 5px;
     }
 

@@ -31,7 +31,9 @@
 
   &.realistic:active {
     transform: translateY(8px);
-    box-shadow: #0a6f84 0 0 0, #0a6f84b3 0 0 3px;
+    box-shadow:
+      #0a6f84 0 0 0,
+      #0a6f84b3 0 0 3px;
   }
 
   &.shine:before {
@@ -83,7 +85,9 @@
   &.secondary {
     background: #ff9b51;
     &.realistic {
-      box-shadow: rgb(226, 125, 46) 0px 5px 2px, rgb(234, 174, 127) 0px 6px 0px;
+      box-shadow:
+        rgb(226, 125, 46) 0px 5px 2px,
+        rgb(234, 174, 127) 0px 5px 0px;
     }
   }
 
@@ -99,8 +103,15 @@
     background: #521a93;
     &.outline button {
       $color: #056d82;
-      text-shadow: 2px 0 $color, -2px 0 $color, 0 2px $color, 0 -2px $color,
-        1px 1px $color, -1px -1px $color, 1px -1px $color, -1px 1px $color;
+      text-shadow:
+        2px 0 $color,
+        -2px 0 $color,
+        0 2px $color,
+        0 -2px $color,
+        1px 1px $color,
+        -1px -1px $color,
+        1px -1px $color,
+        -1px 1px $color;
     }
     &.outline {
       background: transparent;
@@ -112,7 +123,9 @@
       }
     }
     &.realistic {
-      box-shadow: #290d56 0 5px 2px, transparent 0 6px 0px;
+      box-shadow:
+        #290d56 0 5px 2px,
+        transparent 0 6px 0px;
     }
   }
 
@@ -140,7 +153,9 @@
     }
 
     &.realistic {
-      box-shadow: 0 5px 2px #800900, 0 6px #510c0c;
+      box-shadow:
+        0 5px 2px #800900,
+        0 6px #510c0c;
     }
 
     button {
@@ -172,6 +187,9 @@
 
   &.disabled {
     background: #8a8a8a;
+    box-shadow:
+      0 5px 0px #b3b3b3,
+      0 0px #eaae7f !important;
   }
 
   &.remove {

@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from 'react'
 // import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import useCommonStore from '../../hooks/commonStore'
-import { validateTokenSrv, getExperiencesSrv, getUsersSrv, getReferralsSrv } from '../../services/user/user'
+import { validateTokenSrv, getExperiencesSrv, getUsersSrv, getReferralsSrv, getUserSrv } from '../../services/user/user'
 import { getChallengesByUser } from '@/services/challenges/challenges'
 
 const PerfilPage = props => {
@@ -88,8 +88,8 @@ export const getServerSideProps = async (ctx) => {
   }
 
   const uid = cookiesToObject(ctx.req.headers?.cookie)['User-ID']
-  const challenges = await getChallengesByUser(ctx);
-  const userInfoFromServer = await getUsersSrv(ctx, uid)
+  const challenges = await getChallengesByUser(ctx)
+  const userInfoFromServer = await getUserSrv(ctx, uid)
 
   if (statusCode === 403) {
     return {

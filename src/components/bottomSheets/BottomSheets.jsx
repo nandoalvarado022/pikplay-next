@@ -17,6 +17,7 @@ const BottomSheets = (props) => {
     isBottomSheets,
     setIsBottomSheets,
     onClose,
+    topLine = false,
   } = props
 
   const sheetVariants = {
@@ -104,7 +105,7 @@ const BottomSheets = (props) => {
 
   // evitar error si la prop no es una función
   const safeSetIsBottomSheets =
-    typeof setIsBottomSheets === 'function' ? setIsBottomSheets : () => {}
+    typeof setIsBottomSheets === 'function' ? setIsBottomSheets : () => { }
 
   return (
     <>
@@ -145,7 +146,7 @@ const BottomSheets = (props) => {
               }
             }}
           >
-            <motion.div
+            {topLine && <motion.div
               id="draggable"
               className={styles.topLine}
               // el handle visual del drag
@@ -153,7 +154,7 @@ const BottomSheets = (props) => {
                 e.preventDefault()
                 dragControls.start(e)
               }}
-            />
+            />}
 
             {/* content with simple fade-in from bottom */}
             <motion.div

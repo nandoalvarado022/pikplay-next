@@ -6,7 +6,7 @@
 
   :global(.MuiPaper-root) {
     // background-image: url(https://stateless-fueradefoco.storage.googleapis.com/wp-content/uploads/2021/05/30090736/Friends-Portada-1.jpg);
-    background-image: url(/images/backgrounds/bg-ciudad-mallorquin.jpg);
+    background-image: url(/images/backgrounds/questions.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -60,8 +60,9 @@
   }
 
   .subtitle {
+    display: block;
     color: white;
-    margin-bottom: 20px;
+    margin: 10px 0 20px;
     text-align: center;
 
     span {
@@ -107,7 +108,8 @@
     background-color: #6f00ef;
 
     &:has(input:focus) {
-      background: linear-gradient(83.23deg, #feb154 -6.32%, #d263ee 23.89%, #5d5af6 67.88%, #09e0a0 107.67%),
+      background:
+        linear-gradient(83.23deg, #feb154 -6.32%, #d263ee 23.89%, #5d5af6 67.88%, #09e0a0 107.67%),
         linear-gradient(0deg, #0000004d, #0000004d);
       // top: -1px;
     }

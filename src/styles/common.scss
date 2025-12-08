@@ -1,7 +1,7 @@
 // Fonts
 // @import url("https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap");
 // @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Jockey+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Jockey+One&display=swap");
 
 // Custom
 @import "./variables.scss";
@@ -1192,7 +1192,8 @@ a {
 }
 
 @keyframes levitate {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
