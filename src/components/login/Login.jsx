@@ -1,7 +1,7 @@
 'use client'
 
 import cookieCutter from '@boiseitguru/cookie-cutter'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import LoginInterface from './LoginInterface'
 import { useRouter } from 'next/router'
 import useCommonStore from '../../hooks/commonStore'
@@ -19,8 +19,20 @@ function Login(props) {
   const [phoneNumber, setPhoneNumber] = useState(null)
   const [name, setName] = useState(null)
   const [buttonText, setButtonText] = useState('Enviar código')
+  const [countdown, setCountdown] = useState(0)
+  const [canResend, setCanResend] = useState(true)
 
   const numberValidated = phoneNumber => phoneNumber.length === 10
+
+  useEffect(() => {
+    let timer
+    if (countdown > 0) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000)
+    } else if (countdown === 0 && !canResend) {
+      setCanResend(true)
+    }
+    return () => clearTimeout(timer)
+  }, [countdown, canResend])
 
   const handleTengoCodigo = () => {
     // const phoneNumber = document.getElementById('phoneLogin').value
@@ -89,6 +101,8 @@ function Login(props) {
       toast('¡Código enviado!, ahora solo debes colocarlo allí ⬇️')
       setButtonText('Validar')
       setIsCodeSent(true)
+      setCanResend(false)
+      setCountdown(60)
     } else {
       toast.error('Parece que tenemos lios al envíarte el código 😔')
     }
@@ -104,6 +118,13 @@ function Login(props) {
   const handleFixPhone = () => {
     setIsCodeSent(false)
     setButtonText('Enviar código')
+    setCountdown(0)
+    setCanResend(true)
+  }
+
+  const handleResendCode = async () => {
+    if (!canResend) return
+    await handleEnviarCodigo()
   }
 
   const handleClickOpen = () => {
@@ -142,7 +163,10 @@ function Login(props) {
       setIsCodeSent,
       setIsStore,
       setPhoneNumber,
-      setName
+      setName,
+      countdown,
+      canResend,
+      handleResendCode
     }}
   />)
 }

@@ -75,9 +75,9 @@ const useWordChallenge = (setStoreValue) => {
     set({ word: updatedWord.map(letter => letter?.toLowerCase()) })
   }
 
-  const handleSendResponse = (word) => {
+  const handleSendResponse = (word, elapsedMilliseconds, onCloseCallback) => {
     set({ loading: true })
-    postTriviaResponseSrv(null, { response: word, triviaId: triviaInformation.id })
+    postTriviaResponseSrv(null, { response: word, triviaId: triviaInformation.id, duration: elapsedMilliseconds })
       .then(res => {
         set({ loading: false })
         const { data: { closeModal, isCleanWord, messageTop }, message } = res
@@ -93,6 +93,9 @@ const useWordChallenge = (setStoreValue) => {
       .catch(err => {
         set({ loading: false })
         console.error(err)
+      })
+      .finally(() => {
+        onCloseCallback?.()
       })
   }
 

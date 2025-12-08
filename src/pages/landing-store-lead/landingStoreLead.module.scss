@@ -138,13 +138,39 @@
   text-shadow: -2px -2px 2px #ffffff;
   width: 220px;
   z-index: 1;
+  min-height: 75px;
 
   &.first {
     margin-left: 90px;
   }
 
+  &.typing {
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+  }
+
   .highlight {
     color: #7c3aed;
+  }
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: #dbdbdb;
+  display: inline-block;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
   }
 }
 
@@ -163,6 +189,7 @@
 
   &.cardPurple {
     background: linear-gradient(135deg, #a78bfa 0%, #521a93 100%);
+    padding: 10px;
 
     .cardText {
       color: white;
@@ -176,6 +203,13 @@
       flex-shrink: 0;
       height: 60px;
       width: 60px;
+    }
+
+    &.second {
+      p {
+        margin-left: 10px;
+        margin-top: 4px;
+      }
     }
   }
 
@@ -259,6 +293,65 @@ h2.forYou {
   color: #4a1a85;
   font-size: 20px;
   text-align: center;
+}
+
+.couponsSection {
+  margin: 40px 0;
+
+  .sectionTitle {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 800;
+    color: #7138c1;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.couponsCarousel {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.couponsSlides {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  touch-action: pan-y;
+}
+
+.couponSlide {
+  min-width: 100%;
+  flex-shrink: 0;
+}
+
+.couponsDots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d0d0d0;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+
+    &.active {
+      background: #7138c1;
+      width: 30px;
+      border-radius: 5px;
+    }
+
+    &:hover {
+      background: #9b59d6;
+    }
+  }
 }
 
 @media (max-width: 380px) {

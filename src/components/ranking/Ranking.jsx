@@ -14,6 +14,7 @@ import useCommonStore from "@/hooks/commonStore"
 import { useRanking } from "@/hooks/useRanking"
 import { getExperiencesSrv } from "@/services/experience"
 import { addRankingDetailSrv } from "@/services/rankings/rankings"
+import FullScreenLoading from "../fullScreenLoading/FullScreenLoading";
 
 const RankingComponent = (props) => {
   const {
@@ -22,6 +23,7 @@ const RankingComponent = (props) => {
     isButtonReferral,
     isInviteButton,
     isPointsByExperience,
+    callbackParticipar = () => { },
   } = props
   const setIAMessage = useIAStore((item) => item.setIAMessage)
   const setStoreValue = useCommonStore((state) => state.setStoreValue)
@@ -30,6 +32,7 @@ const RankingComponent = (props) => {
     currentPosition,
     fetchRankingData,
     getReferrals,
+    isLoading,
     moveItem,
     rankingData,
     title: rankingTitle,
@@ -57,7 +60,7 @@ const RankingComponent = (props) => {
   const handleParticipate = () => {
     const isLogged = !!userLogged?.uid
     if (!isLogged) {
-      setStoreValue({ isOpenLoginModal: true, leftMenuBar: { isShow: true } })
+      setStoreValue({ isOpenLoginModal: true, /*leftMenuBar: { isShow: true }*/ })
       return
     }
 
@@ -89,95 +92,106 @@ const RankingComponent = (props) => {
 
   return (
     <div className={styles.RankingComponent}>
-      <div className={`contentTitle`}>
-        <h1>
-          <StarIcon className={styles.starIcon} />
-          &nbsp;{rankingTitle}
-        </h1>
+      <div className={styles.bg}>
       </div>
-      {currentPosition && <div className={styles.currentPosition}>Posición actual: {currentPosition}</div>}
+      <div className={styles.content}>
+        {/* <div className={`contentTitle`}>
+          <h1>
+            <StarIcon className={styles.starIcon} />
+            &nbsp;{rankingTitle}
+          </h1>
+        </div> */}
+        {currentPosition && <div className={styles.currentPosition}>Posición actual: {currentPosition}</div>}
 
-      {isButtonJoinRanking && !currentPosition && (
-        <Button
-          color="blue"
-          realistic
-          fullWidth
-          className="p-10"
-          onClick={handleParticipate}
-        >
-          Quiero participar
-        </Button>
-      )}
-      {isButtonReferral && (
-        <Button
-          className="p-10"
-          color="blue"
-          fullWidth
-          onClick={() => getContacts(callbackSuccess)}
-          realistic
-          style={{ marginBottom: "10px" }}
-        >
-          Añadir a un amigo
-        </Button>
-      )}
+        {isLoading && <FullScreenLoading />}
 
-      <ul className={styles.list}>
-        <AnimatePresence>
-          {rankingData &&
-            rankingData.length > 0 &&
-            rankingData.map((member, index) => {
-              const { league } = member
-              const percentageBar = member.points / 100
+        {isButtonJoinRanking && !currentPosition && (
+          <Button
+            disabled={isLoading}
+            color="blue"
+            realistic
+            fullWidth
+            className="p-10 m-t-10"
+            onClick={() => {
+              callbackParticipar()
+              handleParticipate()
+            }}
+          >
+            Quiero participar
+          </Button>
+        )}
+        {isButtonReferral && (
+          <Button
+            className="p-10"
+            color="blue"
+            fullWidth
+            onClick={() => getContacts(callbackSuccess)}
+            realistic
+            style={{ marginBottom: "10px" }}
+          >
+            Añadir a un amigo
+          </Button>
+        )}
 
-              return (
-                <motion.div
-                  layout
-                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
-                  className={`${index == 0 ? "starsFallingDown" : ""} ${styles.item
-                    }`}
-                  onClick={() =>
-                    member.pointsDetail &&
-                    handlePointsDetail(member.pointsDetail)
-                  }
-                  key={member.uid}
-                >
-                  <div className={styles.number}>
-                    {index + 1}
-                    <span className={styles.arrow}>«</span>
-                  </div>
-                  <div className={styles.picture}>
-                    <ProfileImage
-                      isZoom
-                      percentageBar={percentageBar}
-                      picture={member.picture}
-                      small
-                    />
-                  </div>
-                  <div className={styles.name}>
-                    <span>{member.name}</span>
-                    <div>
-                      {league && (
-                        <small className={`${styles.leagueBox} leagueBox`}>
-                          {league}
-                        </small>
-                      )}
+        <ul className={styles.list}>
+          <AnimatePresence>
+            {rankingData &&
+              rankingData.length > 0 &&
+              rankingData.map((member, index) => {
+                const { league } = member
+                const percentageBar = member.points / 100
+
+                return (
+                  <motion.div
+                    layout
+                    transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                    className={`${index == 0 ? "starsFallingDown" : ""} ${styles.item
+                      }`}
+                    // onClick={() =>
+                    //   member.pointsDetail &&
+                    //   handlePointsDetail(member.pointsDetail)
+                    // }
+                    key={member.uid}
+                  >
+                    <div className={styles.number}>
+                      {index + 1}
+                      <span className={styles.arrow}>«</span>
                     </div>
-                  </div>
-                  <div className={styles.points}>
-                    {formatNumber(member.points)} Pts.
-                  </div>
-                  {!member.points && isInviteButton && (
-                    <Button class="f-r" color="yellow" target="_link">
-                      Invitar
-                    </Button>
-                  )}
-                  {/* <button onClick={() => moveItem(member.uid, -1)}>+1</button>
+                    <div className={styles.picture}>
+                      <ProfileImage
+                        isZoom
+                        percentageBar={percentageBar}
+                        // picture="/images/images/ia/4.svg"
+                        picture={member.picture}
+                        small
+                      />
+                    </div>
+                    <div className={styles.name}>
+                      <span>{member.name}</span>
+                      <div>
+                        {league && (
+                          <small className={`${styles.leagueBox} leagueBox`}>
+                            {league}
+                          </small>
+                        )}
+                      </div>
+                    </div>
+                    <div className={styles.points}>
+                      {formatNumber(member.points)} Pts.
+                    </div>
+                    {!member.points && isInviteButton && (
+                      <Button class="f-r" color="yellow" target="_link">
+                        Invitar
+                      </Button>
+                    )}
+                    {/* <button onClick={() => moveItem(member.uid, -1)}>+1</button>
                      <button onClick={() => moveItem(member.uid, 1)}>-1</button>*/}
-                </motion.div>
-              )
-            })}
-        </AnimatePresence>
-      </ul>
+                  </motion.div>
+                )
+              })}
+          </AnimatePresence>
+        </ul>
+      </div>
     </div>
   )
 }

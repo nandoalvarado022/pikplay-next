@@ -3,6 +3,7 @@ import { getUsersSrv } from "@/services/user/user"
 import { useEffect, useState } from "react"
 import useCommonStore from "./commonStore"
 import { getExperiencesSrv } from "@/services/experience"
+import { toast } from "react-toastify"
 
 export const useRanking = ({
   isPointsByExperience,
@@ -13,8 +14,10 @@ export const useRanking = ({
   const [rankingData, setRankingData] = useState([])
   const [currentPosition, setCurrentPosition] = useState(null)
   const [title, setTitle] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const fetchRankingData = async () => {
+    setIsLoading(true)
     try {
       const rankingDataPointsRes = await getRankingDetailSrv(null, rankingId)
       const rankingDataRes = await getRankingSrv(null, rankingId)
@@ -23,6 +26,7 @@ export const useRanking = ({
       const uids = rankingDataPoints.map((member) => member.uid)
 
       const usersRes = await getUsersSrv(null, { uids: uids.join() })
+      setIsLoading(false)
       const { data: usersData } = usersRes
       const uidsAndExperiences = await getExperiencesSrv(null, uids)
       const pointsAndUserData = rankingDataPoints.map((member) => {
@@ -75,6 +79,8 @@ export const useRanking = ({
         setCurrentPosition(_currentPosition)
       }
     } catch (error) {
+      setIsLoading(false)
+      toast("Error al consultar el Ranking")
       console.log("Error fetching ranking data", error)
     }
   }
@@ -122,6 +128,7 @@ export const useRanking = ({
     currentPosition,
     fetchRankingData,
     getReferrals,
+    isLoading,
     moveItem,
     rankingData,
     title,
